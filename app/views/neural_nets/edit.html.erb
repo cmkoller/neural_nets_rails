@@ -1,11 +1,13 @@
 <h2>Design your net</h2>
 
-<% if @neural_net.name %>
+<% if @neural_net.save %>
   <h4><%= @neural_net.name %></h4>
-<% else %>
-  <%= form_for @neural_net do |f| %>
-    <%= f.label :name, "Name:" %>
-    <%= f.text_field :name %>
-    <%= f.submit "Update Name", :class => ["button", "small"] %>
-  <% end %>
+<% end %>
+
+<% if !@neural_net.name || !@neural_net.save %>
+<%= form_for @neural_net do |f| %>
+  <%= f.label :name, "Name:" %>
+  <%= f.text_field :name %>
+  <%= f.submit "Update Name", :class => ["button", "small"] %>
+<% end %>
 <% end %>

@@ -17,10 +17,12 @@ class NeuralNetsController < ApplicationController
 
     if @neural_net.update(neural_net_params)
       flash[:info] = "Name updated."
+      redirect_to edit_neural_net_path(@neural_net)
     else
+      # binding.pry
       flash[:warning] = @neural_net.errors.full_messages.join(".  ")
+      render 'edit'
     end
-    redirect_to edit_neural_net_path(@neural_net)
   end
 
   private

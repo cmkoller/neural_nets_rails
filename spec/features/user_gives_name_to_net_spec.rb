@@ -8,8 +8,8 @@ So that I can easily recognize it from the others
 Acceptance Criteria
 [ ] I must be have created a net and be on the "Design Your Net" page
 [ ] I must fill out the form item at the top of the page labeled "name" and click "submit"
-[ ] My name must be 255 characters or less
-[ ] Clicking "Submit" will keep me on the same page and display the name
+[ ] My name must be 255 characters or less. If too long, I should get an error message.
+[ ] Successfully updating will keep me on the same page and display the name
 [ ] Once a name has been set, the form should no longer appear.
 
 ) do
@@ -22,11 +22,22 @@ Acceptance Criteria
 
   scenario 'user successfully names net' do
     name = "My Neural Net"
-    expect(page).to have_field("Name")
     fill_in "Name:", with: name
     click_on "Update Name"
     expect(page).to have_content(name)
     expect(page).to have_no_field("Name")
+  end
+
+  scenario 'user chooses a too-long name' do
+    name = "My super-duper-duper-duper-duper-duper-duper-duper-duper-duper-duper-duper
+    -duper-duper-duper-duper-duper-duper-duper-duper-duper-duper-duper-duper-duper
+    -duper-duper-duper-duper-duper-duper-duper-duper-duper-duper-duper-duper-duper
+    -duper long Neural Net Name"
+    fill_in "Name:", with: name
+    click_on "Update Name"
+    expect(page).to have_content("Name is too long")
+    expect(find_field("Name").value).to have_content(name)
+    expect(page).to have_field("Name")
   end
 
 end
