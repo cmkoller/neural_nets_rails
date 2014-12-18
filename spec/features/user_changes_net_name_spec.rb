@@ -15,19 +15,19 @@ Acceptance Criteria
 
 ) do
 
-  # before(:each) do
-  #   visit root_path
-  #   click_on "Create New Net"
-  # end
-  #
-  #
-  # scenario 'user successfully names net' do
-  #   name = "My Neural Net"
-  #   expect(page).to have_field("Name")
-  #   fill_in "Name:", with: name
-  #   click_on "Update Name"
-  #   expect(page).to have_content(name)
-  #   expect(page).to have_no_field("Name")
-  # end
+  before(:each) do
+    visit root_path
+    click_on "Create New Net"
+    name = "My Neural Net"
+    expect(page).to have_field("Name")
+    fill_in "Name:", with: name
+    click_on "Update Name"
+  end
+
+
+  scenario 'user successfully names net' do
+    expect(page).to have_content(name)
+    expect(page).to have_no_field("Name")
+  end
 
 end

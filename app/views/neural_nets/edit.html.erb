@@ -5,9 +5,11 @@
 <% end %>
 
 <% if !@neural_net.name || !@neural_net.save %>
-<%= form_for @neural_net do |f| %>
-  <%= f.label :name, "Name:" %>
-  <%= f.text_field :name %>
-  <%= f.submit "Update Name", :class => ["button", "small"] %>
+  <%= form_for @neural_net do |f| %>
+    <%= f.label :name, "Name:" %>
+    <%= f.text_field :name %>
+    <%= f.submit "Update Name", :class => ["button", "small"] %>
+  <% end %>
 <% end %>
-<% end %>
+
+<%= render 'net_with_node_buttons' %>
