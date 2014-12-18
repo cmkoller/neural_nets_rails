@@ -1,6 +1,6 @@
-<!-- MUST BE WRAPPED IN ITERATOR THAT PROVIDES VARIABLE "L" -->
-  <% num_nodes = @neural_net.layer_n_nodes(l).length %>
-  <% @neural_net.loop_over_nodes(l) do |i| %>
+<!-- MUST BE WRAPPED IN ITERATOR THAT PROVIDES VARIABLE "layer" -->
+  <% num_nodes = @neural_net.layer_n_nodes(layer).length %>
+  <% @neural_net.loop_over_nodes(layer) do |i| %>
     <div class="columns text-center small-<%= 12/num_nodes %>">
       <div class="node"></div>
     </div>

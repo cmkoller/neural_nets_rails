@@ -1,4 +1,4 @@
-<% @neural_net.num_layers.times do |l| %>
+<% @neural_net.num_layers.times do |layer| %>
   <div class="row">
     <!-- Print "Delete" Button -->
     <div class="columns small-1">
@@ -6,17 +6,21 @@
     </div>
     <!-- Print Layer -->
     <div class="columns small-10">
-      <%= render 'layer' %>
+      <%= render partial: 'layer', locals: {layer: layer} %>
     </div>
 
     <!-- Print "Add" Button -->
     <div class="columns small-1">
-      <p>+</p>
+      <%= render partial: 'nodes/add_node', locals: {layer: layer} %>
     </div>
+    <!-- <div class="columns small-1">
+      <p>+</p>
+    </div> -->
   </div>
 
 <% end %>
 
+<% layer = @neural_net.num_layers %>
 
 <div class="row">
   <!-- Print "Delete" Button -->
@@ -25,7 +29,8 @@
   </div>
 
   <!-- Print "Add" Button -->
-  <div class="columns small-offset-9 small-1">
-    <p>+</p>
+  <div class="columns small-1">
+    <%= render partial: 'nodes/add_node', locals: {layer: layer} %>
   </div>
+
 </div>

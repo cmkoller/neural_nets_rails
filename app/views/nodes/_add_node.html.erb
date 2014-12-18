@@ -1,0 +1,5 @@
+<!-- MUST be provided a layer variable "layer"! -->
+<%= form_for([@neural_net, @neural_net.nodes.new]) do |f| %>
+  <%= hidden_field_tag "layer", layer %>
+  <%= f.submit "+", :class => "button" %>
+<% end %>

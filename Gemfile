@@ -10,6 +10,7 @@ gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'spring',        group: :development
+gem 'foundation-rails'
 
 group :development, :test do
   gem 'pry-rails'
