@@ -1,0 +1,7 @@
+<%= link_to "Create New Net", new_neural_net_path %>
+
+<ul>
+  <% @nets.each do |net| %>
+    <li><%= net.name %></li>
+  <% end %>
+</ul>
