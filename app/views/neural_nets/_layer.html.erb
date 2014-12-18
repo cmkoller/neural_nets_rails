@@ -1,4 +1,5 @@
 <!-- MUST BE WRAPPED IN ITERATOR THAT PROVIDES VARIABLE "layer" -->
+<div class="row layer_<%= layer %>_nodes"
   <% num_nodes = @neural_net.layer_n_nodes(layer).length %>
   <% @neural_net.loop_over_nodes(layer) do |i| %>
     <div class="columns text-center small-<%= 12/num_nodes %>">
