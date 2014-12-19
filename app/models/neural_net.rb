@@ -57,6 +57,7 @@ class NeuralNet < ActiveRecord::Base
   # Input: L, representing the layer number (0th layer is top layer)
   # Generates a new node on layer L with randomly weighted connections
   # to all nodes on layer above (if applicable) and below (if applicable)
+  # Returns NODE
   def create_node(l)
     node = Node.create(neural_net_id: id, layer: l)
     # Unless L is first layer, generate upward connections
@@ -83,6 +84,7 @@ class NeuralNet < ActiveRecord::Base
         weight: weight.round(3))
       end
     end
+    node
   end
 
 end

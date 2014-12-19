@@ -2,7 +2,7 @@
   <div class="row layer_<%= layer %>">
     <!-- Print "Delete" Button -->
     <div class="columns small-1">
-      <p>X</p>
+      <%= render partial: 'nodes/delete_node', locals: {layer: layer} %>
     </div>
     <!-- Print Layer -->
     <div class="columns small-10">
@@ -22,10 +22,10 @@
 
 <% layer = @neural_net.num_layers %>
 
-<div class="row">
+<div class="row layer_<%= layer %>">
   <!-- Print "Delete" Button -->
   <div class="columns small-1">
-    <p>X</p>
+    <%= render partial: 'nodes/delete_node', locals: {layer: layer} %>
   </div>
 
   <!-- Print "Add" Button -->
