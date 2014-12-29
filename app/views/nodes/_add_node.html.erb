@@ -3,6 +3,6 @@
 <div class="node-edit-button add">
   <%= form_for([@neural_net, @neural_net.nodes.new]) do |f| %>
     <%= f.hidden_field(:layer, value: layer) %>
-    <%= f.submit "+", :class => ["button", "small", "round"], :id => "add_layer_#{layer}" %>
+    <%= f.submit "+", :class => ["button", "small"], :id => "add_layer_#{layer}" %>
   <% end %>
 </div>

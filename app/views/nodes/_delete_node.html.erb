@@ -3,9 +3,9 @@
 <div class="node-edit-button delete">
   <% if node %>
     <%= form_tag(neural_net_node_path( @neural_net, node), method: "delete") do %>
-      <%= submit_tag "x", :class => ["button", "small", "node-edit", "round"], :id => "delete_layer_#{layer}" %>
+      <%= submit_tag "x", :class => ["button", "small", "node-edit"], :id => "delete_layer_#{layer}" %>
     <% end %>
   <% else %>
-    <%= submit_tag "x", :class => ["button", "small", "node-edit", "round"], :id => "delete_layer_#{layer}" %>
+    <%= submit_tag "x", :class => ["button", "small", "node-edit"], :id => "delete_layer_#{layer}" %>
   <% end %>
 </div>
