@@ -1,10 +1,10 @@
 <h2>Design your net</h2>
 
 <%= form_for @neural_net do |f| %>
-  <%= f.label :name, "Name:", required: true %>
-  <%= f.text_field :name %>
+  <%= f.label :name, "Name:" %>
+  <%= f.text_field :name, required: true %>
 
-  <%= f.submit "Save Net", :class => ["button", "small"] %>
+  <%= f.submit "Save Net", :class => ["button", "small", "round"] %>
 <% end %>
 
 <%= render 'net_view_with_node_buttons' %>

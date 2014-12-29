@@ -1,10 +1,11 @@
 <!-- MUST be provided a layer variable "layer"! -->
 <% node = Node.find_by(layer: layer, neural_net_id: @neural_net.id) %>
-
-<% if node %>
-  <%= form_tag(neural_net_node_path( @neural_net, node), method: "delete") do %>
-    <%= submit_tag "x", :class => "button", :id => "delete_layer_#{layer}" %>
+<div class="node-edit-button delete">
+  <% if node %>
+    <%= form_tag(neural_net_node_path( @neural_net, node), method: "delete") do %>
+      <%= submit_tag "x", :class => ["button", "small", "node-edit", "round"], :id => "delete_layer_#{layer}" %>
+    <% end %>
+  <% else %>
+    <%= submit_tag "x", :class => ["button", "small", "node-edit", "round"], :id => "delete_layer_#{layer}" %>
   <% end %>
-<% else %>
-  <%= submit_tag "x", :class => "button", :id => "delete_layer_#{layer}" %>
-<% end %>
+</div>

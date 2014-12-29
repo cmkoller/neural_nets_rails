@@ -1,8 +1,85 @@
+// ====================
+// BODY & TEXT STYLING
+// ====================
+
+$dark_base_color: #332B40;
+$light_base_color: white;
+$dark_text_color: #413E44;
+$accent_1: #EFE672;
+$accent_2: #98A942;
+$accent_3: #0574A6;
+/* 54C5F7 */
+
+body {
+  background-color: $light_base_color;
+
+  h1, h2, h3, h4, h5, h6, & {
+    color: $dark_text_color;
+  }
+}
+
+.header-wrapper {
+  &, .top-bar {
+    background-color: $dark_base_color;
+  }
+}
+
+.top-bar {
+  .name h1 a {
+    color: $light_base_color;
+  }
+  .top-bar-section {
+    ul li,
+    ul li:hover:not(.has-form) > a,
+    li:not(.has-form) a:not(.button),
+    .dropdown li:not(.has-form):not(.active) > a:not(.button),
+    li.active:not(.has-form) a:not(.button) {
+      background: $dark_base_color;
+    }
+
+    ul li a:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+button, .button {
+  background-color: $accent_3;
+
+  &:hover, &:focus, &:hover, &:focus {
+    background-color: darken($accent_3, 6%);
+  }
+}
+
+// ====================
+// NET EDIT
+// ====================
+
+.node-edit-button {
+  text-align: center;
+
+  .button.small {
+    padding-top: 0.3rem;
+    padding-right: .65rem;
+    padding-bottom: 0.33rem;
+    padding-left: 0.65rem;
+    font-size: 0.8125rem;
+    width: 30px;
+    border-radius: 11px;
+    height: 30px;
+  }
+}
+
+
+// ====================
+// NODE
+// ====================
 
 .node {
   width: 50px;
   height: 50px;
   border-radius: 50px;
-  background: aqua;
+  background-color: transparent;
   margin: auto;
+  border: 5px solid #685782;
 }
