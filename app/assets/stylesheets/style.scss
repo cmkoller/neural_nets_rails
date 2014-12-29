@@ -52,6 +52,28 @@ button, .button {
 }
 
 // ====================
+// NET VIEW
+// ====================
+
+// LAYER
+// --------------------
+
+.layer.row {
+  margin-bottom: 40px;
+}
+
+// NODE
+// --------------------
+.node {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: transparent;
+  margin: auto;
+  border: 5px solid #685782;
+}
+
+// ====================
 // NET EDIT
 // ====================
 
@@ -68,18 +90,4 @@ button, .button {
     border-radius: 11px;
     height: 30px;
   }
-}
-
-
-// ====================
-// NODE
-// ====================
-
-.node {
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
-  background-color: transparent;
-  margin: auto;
-  border: 5px solid #685782;
 }
