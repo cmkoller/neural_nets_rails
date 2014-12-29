@@ -1,0 +1,5 @@
+<% @neural_net.num_layers.times do |layer| %>
+  <!-- Print Layer -->
+  <%= render partial: 'layer', locals: {layer: layer} %>
+
+<% end %>
