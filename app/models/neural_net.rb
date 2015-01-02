@@ -1,5 +1,7 @@
 class NeuralNet < ActiveRecord::Base
   has_many :nodes
+  has_many :preset_inputs
+  has_many :desired_outputs
 
   validates :name, length: {maximum: 255}
 
@@ -30,6 +32,12 @@ class NeuralNet < ActiveRecord::Base
   # --------------------
   def first_layer_nodes
     layer_n_nodes(0)
+  end
+
+  # FIRST_LAYER_SIZE
+  # --------------------
+  def first_layer_size
+    first_layer_nodes.length
   end
 
   # LAST_LAYER_NODES

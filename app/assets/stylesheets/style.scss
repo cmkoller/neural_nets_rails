@@ -5,6 +5,7 @@
 $dark_base_color: #332B40;
 $light_base_color: white;
 $dark_text_color: #413E44;
+$node_purple: #685782;
 $accent_1: #EFE672;
 $accent_2: #98A942;
 $accent_3: #0574A6;
@@ -70,7 +71,17 @@ button, .button {
   border-radius: 50px;
   background-color: transparent;
   margin: auto;
-  border: 5px solid #685782;
+  border: 5px solid $node_purple;
+  display: inline-block;
+
+  .small-net & {
+    width: 20px;
+    height: 20px;
+  }
+
+  &.active {
+    background-color: $node_purple;
+  }
 }
 
 // ====================

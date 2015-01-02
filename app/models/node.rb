@@ -9,4 +9,10 @@ class Node < ActiveRecord::Base
   validates :layer,
     presence: true
 
+    def active?
+      if total_input >= 1
+        "active"
+      end
+    end
+
 end

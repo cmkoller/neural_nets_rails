@@ -6,10 +6,25 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-12.times do |n|
-  # Make names more complex later
-  net = NeuralNet.create({name: "Net#{n}"})
-  43.times do
-    Node.create({layer: rand(3), neural_net_id: net.id})
-  end
+
+net = NeuralNet.create({name: "Sample Net"})
+2.times do
+  Node.create({layer: 0, neural_net_id: net.id})
+end
+2.times do
+  Node.create({layer: 1, neural_net_id: net.id})
+end
+
+preset_inputs = [
+  {name: "T/T", values: "11"},
+  {name: "T/F", values: "10"},
+  {name: "F/T", values: "01"},
+  {name: "F/F", values: "00"}
+]
+
+preset_inputs.each do |info|
+  info[:neural_net_id] = net.id
+  cur = PresetInput.create(info)
+  info[:preset_input_id] = cur.id
+  DesiredOutput.create(info)
 end

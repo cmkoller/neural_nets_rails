@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   root to: "neural_nets#index"
   resources :neural_nets do
     resources :nodes, only: [:create, :destroy]
-    resources :preset_inputs
-    resources :desired_outputs
+    resources :preset_inputs, only: [:index, :create, :destroy]
+    # resources :desired_outputs
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
