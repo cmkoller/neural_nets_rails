@@ -11,29 +11,41 @@
 
   <!-- Start Input/Output Creation -->
   <div class="columns small-6">
-    <%= form_for [@neural_net, @preset_input] do |f| %>
+    <h3>Add an Input/Output pairing:</h3>
+    <%= form_for [@neural_net, setup_preset_input(@preset_input)] do |f| %>
       <%= f.label :name, "Input Name:" %>
       <%= f.text_field :name %>
       <!-- Form for INPUT creation -->
+      <%= f.label "Input Activations:" %>
       <% if @neural_net.first_layer_size > 0 %>
         <% @neural_net.first_layer_size.times do |i| %>
           <div class="columns text-center small-<%= 12/@neural_net.first_layer_size %>">
             <%= f.check_box :values, name: "preset_input[values][#{i}]" %>
-            <!-- <input type="checkbox" name="input_<%= i %>" id="input_<%= i %>" class="css-checkbox" /> -->
+          </div>
+        <% end %>
+      <% end %>
+      <hr />
+      <!-- Form for OUTPUT creation -->
+      <%= f.fields_for :desired_output do |ff| %>
+        <%= ff.label :name, "Desired Output Name:" %>
+        <%= ff.text_field :name %>
+        <%= ff.label "Desired Output Activations:" %>
+        <% @neural_net.last_layer_nodes.length.times do |i| %>
+          <div class="columns text-center small-<%= 12/@neural_net.last_layer_nodes.length %>">
+            <%= ff.check_box :values, name: "preset_input[desired_output_attributes][values][#{i}]" %>
           </div>
         <% end %>
       <% end %>
 
-
-      <%= f.submit %>
+      <%= f.submit class: "button small"%>
     <% end %>
   </div>
 
   <div class="columns small-3">
-    <div class="panel">
+    <div class="panel small-net">
       <% @neural_net.preset_inputs.each do |input| %>
-        <!-- Display INPUT section -->
         <div class="panel">
+          <!-- Display INPUT section -->
           <div class="row">
             <h6><%= input.name %></h6>
             <% input.values.values.each do |val| %>
@@ -42,8 +54,16 @@
               </div>
             <% end %>
           </div>
+          <!-- Display OUTPUT section -->
+          <div class="row">
+            <h6><%= input.desired_output.name %></h6>
+            <% input.desired_output.values.values.each do |val| %>
+              <div class="columns text-center small-<%= 12/input.desired_output.values.length %>">
+                <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <!-- Display OUTPUT section -->
       <% end %>
     </panel>
   </div>
