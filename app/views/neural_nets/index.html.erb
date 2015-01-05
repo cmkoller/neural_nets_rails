@@ -2,6 +2,8 @@
 
 <ul>
   <% @neural_nets.each do |net| %>
-    <li><%= link_to net.name, neural_net_path(net) %></li>
+    <li>
+      <%= link_to "#{net.name ? net.name : "Net #{net.id}"}", neural_net_path(net) %>
+    </li>
   <% end %>
 </ul>
