@@ -19,7 +19,7 @@ Acceptance Criteria
 
   let(:neural_net) { FactoryGirl.create(:neural_net) }
   before(:each) do
-    visit edit_neural_net_path(neural_net)
+    visit neural_net_nodes_path(neural_net)
     page.find('#add_layer_0').click
     page.find('#add_layer_0').click
     page.find('#add_layer_1').click

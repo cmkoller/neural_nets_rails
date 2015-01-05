@@ -5,19 +5,15 @@ class NeuralNetsController < ApplicationController
 
   def new
     @neural_net = NeuralNet.create
-    redirect_to edit_neural_net_path(@neural_net)
-  end
-
-  def edit
-    @neural_net = NeuralNet.find(params[:id])
+    redirect_to neural_net_nodes_path(@neural_net)
   end
 
   def update
     @neural_net = NeuralNet.find(params[:id])
 
     if @neural_net.update(neural_net_params)
-      flash[:info] = "Name updated."
-      redirect_to neural_nets_path(@neural_net)
+      flash[:info] = "Neural net updated."
+      redirect_to neural_net_path(@neural_net)
     else
       flash[:warning] = @neural_net.errors.full_messages.join(".  ")
       render 'edit'

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: "neural_nets#index"
   resources :neural_nets do
-    resources :nodes, only: [:create, :destroy]
+    resources :nodes, only: [:create, :destroy, :index]
     resources :preset_inputs, only: [:index, :create, :destroy]
     # resources :desired_outputs
   end
