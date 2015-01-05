@@ -30,7 +30,6 @@ Acceptance Criteria
   scenario 'user successfully creates input/output pairing' do
     fill_in "Input Name:", with: "False/False"
     fill_in "Output Name:", with: "False"
-    # save_and_open_page`
     click_button "Create"
     expect(page).to have_content("Saved")
     expect(page).to have_content("False/False")
