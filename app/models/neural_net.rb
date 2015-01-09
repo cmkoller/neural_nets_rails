@@ -5,6 +5,9 @@ class NeuralNet < ActiveRecord::Base
 
   validates :name, length: {maximum: 255}
 
+  # Small constant regulating speed of learning
+  ALPHA = 0.2
+
   def input
   end
 
@@ -192,7 +195,6 @@ class NeuralNet < ActiveRecord::Base
       node = last_layer_nodes[i]
       desired = desired[i].to_i
       node.update_output_node_error(desired)
-
       # Update connections with that node's parents
       node.update_parent_connections(ALPHA)
     end

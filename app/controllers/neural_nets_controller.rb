@@ -16,7 +16,7 @@ class NeuralNetsController < ApplicationController
       @neural_net.feed_forward(@preset_input.values.values)
       render 'show'
     elsif neural_net_params[:output]
-      @desired_output = DesiredOutput.find(neural_net_params[:backprop])
+      @desired_output = DesiredOutput.find(neural_net_params[:output])
       @neural_net.backprop(@desired_output.values.values)
       render 'show'
     elsif @neural_net.update(neural_net_params)
@@ -35,7 +35,7 @@ class NeuralNetsController < ApplicationController
   private
 
   def neural_net_params
-    params.require(:neural_net).permit(:name, :input, :backprop)
+    params.require(:neural_net).permit(:name, :input, :output)
   end
 
 end
