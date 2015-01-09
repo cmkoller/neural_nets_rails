@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141219205703) do
+ActiveRecord::Schema.define(version: 20150108224311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,10 +39,10 @@ ActiveRecord::Schema.define(version: 20141219205703) do
   end
 
   create_table "nodes", force: true do |t|
-    t.integer "layer",         default: 0, null: false
-    t.integer "neural_net_id",             null: false
-    t.integer "output",        default: 0
-    t.integer "total_input",   default: 0
+    t.integer "layer",         default: 0,   null: false
+    t.integer "neural_net_id",               null: false
+    t.float   "output",        default: 0.0, null: false
+    t.float   "total_input",   default: 0.0, null: false
     t.integer "error"
   end
 

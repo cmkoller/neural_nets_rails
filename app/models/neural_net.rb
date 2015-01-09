@@ -5,6 +5,12 @@ class NeuralNet < ActiveRecord::Base
 
   validates :name, length: {maximum: 255}
 
+  def input
+  end
+
+  def output
+  end
+
   # ====================
   # HELPER FUNCTIONS
   # ====================
@@ -56,6 +62,39 @@ class NeuralNet < ActiveRecord::Base
     end
   end
 
+  # REVERSE_LOOP_OVER_LAYERS
+  # --------------------
+  # Loops in over layers in reverse
+  # => Takes in a block to execute code on layer index
+  def reverse_loop_over_layers
+    (num_layers - 1).downto(0).each do |l|
+      yield l
+    end
+  end
+
+  # GET_OUTPUTS
+  # --------------------
+  # Returns an array of outputs from output layer of net
+  def get_outputs
+    outputs = []
+    last_layer_nodes = layer_n_nodes(num_layers - 1)
+    loop_over_nodes(num_layers - 1) do |i|
+      outputs << last_layer_nodes[i].output
+    end
+    outputs
+  end
+
+  # RESET_ALL_NODES
+  # --------------------
+  # Resets all OUTPUT and TOTAL_INPUT fields to 0
+  def reset_all_nodes
+    NeuralNet.find(id).nodes.each do |node|
+      node.output = 0.0
+      node.total_input = 0.0
+      node.save
+    end
+  end
+
   # ====================
   # CREATION/DELETION METHODS
   # ====================
@@ -94,5 +133,108 @@ class NeuralNet < ActiveRecord::Base
     end
     node
   end
+
+
+  # ====================
+  # FEED FORWARD
+  # ====================
+
+  # FEED_FORWARD
+  # --------------------
+  # Input: Array of values between 0 and 1 (inclusive).
+  # => Array must be same length as first layer of nodes
+
+  def feed_forward(input)
+    reset_all_nodes
+    # Check for wrong number of inputs
+    unless input.length == first_layer_nodes.length
+      return "ERROR - wrong number of inputs."
+    end
+
+    # Pass input values to first layer of nodes
+    loop_over_nodes(0) do |i|
+      node = first_layer_nodes[i]
+      node.total_input = input[i]
+      node.save
+    end
+
+    # For each layer but the last, pass activation down
+    (num_layers - 1).times do |layer_num|
+      cur_layer_nodes = layer_n_nodes(layer_num)
+      # For each node in this layer, use the total input to calculate the output
+      loop_over_nodes(layer_num) do |i|
+        node = cur_layer_nodes[i]
+        node.update_output
+        #For each child of this node, add to that node's total input
+        node.send_output_to_children
+      end
+    end
+
+    # Once we've fed forward to the last layer, calculate last layer's output
+    loop_over_nodes(num_layers - 1) do |i|
+      node = last_layer_nodes[i]
+      node.update_output
+    end
+  end
+
+  # ====================
+  # BACK PROPAGATION
+  # ====================
+
+  # BACK_PROP
+  # --------------------
+  # Input: Array of values between 0 and 1 (inclusive) representing desired output.
+  # => Array must be same length as output layer of nodes
+
+  def backprop(desired)
+    # Calculate error for output layer nodes
+    loop_over_nodes(num_layers - 1) do |i|
+      node = last_layer_nodes[i]
+      desired = desired[i].to_i
+      node.update_output_node_error(desired)
+
+      # Update connections with that node's parents
+      node.update_parent_connections(ALPHA)
+    end
+
+    # Move upwards through layers
+    reverse_loop_over_layers do |l|
+      # Only execute for middle nodes
+      if l == 0 || l == num_layers - 1
+        next
+      end
+      cur_layer_nodes = layer_n_nodes(l)
+      # Loop over each node in layer
+      loop_over_nodes(l) do |i|
+        node = cur_layer_nodes[i]
+        node.update_middle_node_error
+
+        # Update connections with that node's parents
+        node.update_parent_connections(ALPHA)
+      end
+    end
+  end
+
+  # ====================
+  # TRAIN X TIMES
+  # ====================
+
+  # TRAIN
+  # --------------------
+  # Input: Integer representing the number of trainings to run
+  # => Runs X trainings on NN, each of which involves a feed-forward/back-prop
+  # => pairing using one of the preset input/output pairings.
+
+
+  def train(x)
+    inputs = preset_inputs.where(net_id: id)
+    x.times do |i|
+      input = inputs[i % inputs.length]
+      feed_forward(input.values.split(""))
+      output = input.desired_output
+      back_prop(output.values.split(""))
+    end
+  end
+
 
 end

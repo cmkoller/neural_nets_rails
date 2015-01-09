@@ -1,0 +1,18 @@
+<%= form_for @neural_net do |f| %>
+  <h5>Choose an input to give the net!</h5>
+  <% @neural_net.preset_inputs.each do |preset_input| %>
+    <%= f.label :input, value: preset_input.id do %>
+    <div class="panel">
+      <%= f.radio_button :input, preset_input.id %>
+      <% unless preset_input.name.empty? %>
+        <%= f.label "input_#{preset_input.id}".to_sym, preset_input.name %>
+        <br>
+      <% end %>
+      <% preset_input.values.values.each do |val| %>
+        <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
+      <% end %>
+    </div>
+    <% end %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
