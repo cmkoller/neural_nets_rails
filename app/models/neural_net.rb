@@ -2,7 +2,7 @@ class NeuralNet < ActiveRecord::Base
   has_many :nodes
   has_many :preset_inputs
   has_many :desired_outputs
-
+  has_one :selected_input, class_name: "PresetInput"
   attr_accessor :times, :input, :output
 
   validates :name, length: {maximum: 255}
@@ -10,7 +10,7 @@ class NeuralNet < ActiveRecord::Base
   # Small constant regulating speed of learning
   ALPHA = 0.2
 
-  def input
+  def input=()
   end
 
   def output
