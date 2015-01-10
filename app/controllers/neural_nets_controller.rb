@@ -35,7 +35,7 @@ class NeuralNetsController < ApplicationController
   private
 
   def neural_net_params
-    params.require(:neural_net).permit(:name, :input, :output)
+    params.require(:neural_net).permit(:name, :input, :output, :times)
   end
 
 end
