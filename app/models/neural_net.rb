@@ -3,6 +3,8 @@ class NeuralNet < ActiveRecord::Base
   has_many :preset_inputs
   has_many :desired_outputs
 
+  attr_accessor :times, :input, :output
+
   validates :name, length: {maximum: 255}
 
   # Small constant regulating speed of learning
@@ -12,6 +14,10 @@ class NeuralNet < ActiveRecord::Base
   end
 
   def output
+  end
+
+  def times=(x)
+    train(x.to_i)
   end
 
   # ====================
@@ -229,12 +235,11 @@ class NeuralNet < ActiveRecord::Base
 
 
   def train(x)
-    inputs = preset_inputs.where(net_id: id)
     x.times do |i|
-      input = inputs[i % inputs.length]
-      feed_forward(input.values.split(""))
+      input = preset_inputs[i % preset_inputs.length]
+      feed_forward(input.values.values)
       output = input.desired_output
-      back_prop(output.values.split(""))
+      backprop(output.values.values)
     end
   end
 
