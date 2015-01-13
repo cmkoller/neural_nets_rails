@@ -24,7 +24,7 @@
     <hr />
   <% end %>
   <!-- Show the Net -->
-  <%= render 'net_view' %>
+  <div id="container" class="columns small-12"></div>
   <!-- Show Output vs. Desired Output -->
   <% if @desired_output %>
     <hr />
@@ -52,4 +52,11 @@
       <% end %>
     </div>
   <% end %>
+
+
+  <!-- SIGMA STUFF -->
+  <div id="container">
+    <div id="graph-container"></div>
+  </div>
+
 </div>

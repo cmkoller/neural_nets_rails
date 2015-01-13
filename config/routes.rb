@@ -3,8 +3,15 @@ Rails.application.routes.draw do
   resources :neural_nets do
     resources :nodes, only: [:create, :destroy, :index]
     resources :preset_inputs, only: [:index, :create, :destroy]
-    # resources :desired_outputs
+    resources :data, :defaults => { :format => 'json' }
   end
+
+
+  # Rails.application.routes.draw do
+  #   get 'graph/index'
+  #   get 'graph/data', :defaults => { :format => 'json' }
+  # end
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
