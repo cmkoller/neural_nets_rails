@@ -15,6 +15,9 @@
 //= require foundation
 //= require sigma.min
 //= require sigma.parsers.json.min.js
+// DON'T = require sigma.renderers.edgeLabels/settings
+// DON'T = require sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js
+
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

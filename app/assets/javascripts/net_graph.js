@@ -15,10 +15,10 @@ $(document).ready(function() {
     settings: {
       minNodeSize: 16,
       maxNodeSize: 16,
-      minEdgeSize: 1,
-      maxEdgeSize: 20,
-      labelThreshold: 20,
-      defaultNodeType: 'custom'
+      // minEdgeSize: 1,
+      // maxEdgeSize: 2,
+      labelThreshold: 0,
+      edgeLabelSize: 'proportional'
     }
   });
 
