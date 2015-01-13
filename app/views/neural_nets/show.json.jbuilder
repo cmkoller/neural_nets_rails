@@ -24,7 +24,7 @@ json.edges @neural_net.connections do |conn|
   json.id conn.id.to_s
   json.source conn.parent.id.to_s
   json.target conn.child.id.to_s
-  json.label "HEYYYYYY"
-  # json.color conn.weight >= 0 ? "#0fa" : "#fa0"
-  # json.size conn.weight.abs
+  json.label "#{conn.weight}"
+  json.color conn.weight >= 0 ? "#0fa" : "#fa0"
+  json.size conn.weight.abs
 end

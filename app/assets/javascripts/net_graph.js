@@ -15,8 +15,8 @@ $(document).ready(function() {
     settings: {
       minNodeSize: 16,
       maxNodeSize: 16,
-      // minEdgeSize: 1,
-      // maxEdgeSize: 2,
+      minEdgeSize: 1,
+      maxEdgeSize: 10,
       labelThreshold: 0,
       edgeLabelSize: 'proportional'
     }
