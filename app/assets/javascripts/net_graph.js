@@ -15,12 +15,14 @@ $(document).ready(function() {
     settings: {
       minNodeSize: 16,
       maxNodeSize: 16,
+      minEdgeSize: 1,
+      maxEdgeSize: 20,
       labelThreshold: 20,
       defaultNodeType: 'custom'
     }
   });
 
-  sigma.parsers.json('/neural_nets/4.json',
+  sigma.parsers.json(document.URL + '.json',
     s,
     function() {
       // this below adds x, y attributes as well as size = degree of the node
