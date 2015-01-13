@@ -18,7 +18,7 @@ sigma.canvas.nodes.border = (function() {
     context.closePath();
 
     context.closePath();
-    context.shadowColor = '#ff0';
+    context.shadowColor = '#FFE500';
     context.shadowBlur = 15;
 
     context.fillStyle = "#fff";
