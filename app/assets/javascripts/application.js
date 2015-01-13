@@ -13,7 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require turbolinks
+//= require sigma.min
+//= require sigma.parsers.json.min.js
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

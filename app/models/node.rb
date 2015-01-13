@@ -11,6 +11,20 @@ class Node < ActiveRecord::Base
 
   after_initialize :init
 
+
+  # =========================
+  # SERVING FOR SIGMA.JS
+  # =========================
+
+  def to_builder
+    JBuilder.new do |node|
+      node.id id
+      node.layer "LAYERRRR"
+    end
+  end
+
+  # ---------------------------------------------------------
+
   def init
     self.total_input ||= 0.0
   end

@@ -10,6 +10,21 @@ class NeuralNet < ActiveRecord::Base
   # Small constant regulating speed of learning
   ALPHA = 0.2
 
+  def data
+    # my_hash = {:hello => "goodbye"}
+    # JSON.generate(my_hash)
+    file = File.read("public/nodes.json")
+    JSON.generate(JSON.parse(file))
+  end
+
+  def to_builder
+    JBuilder.new do |neural_net|
+      neural_net.nodes.each do |node|
+        neural_net.nodes.node_id node.to_builder
+      end
+    end
+  end
+
   def input=(id)
     selected_input = preset_inputs.find(id)
     feed_forward(selected_input.values.values)
