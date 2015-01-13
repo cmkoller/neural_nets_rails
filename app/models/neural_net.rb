@@ -11,18 +11,8 @@ class NeuralNet < ActiveRecord::Base
   ALPHA = 0.2
 
   def data
-    # my_hash = {:hello => "goodbye"}
-    # JSON.generate(my_hash)
     file = File.read("public/nodes.json")
     JSON.generate(JSON.parse(file))
-  end
-
-  def to_builder
-    JBuilder.new do |neural_net|
-      neural_net.nodes.each do |node|
-        neural_net.nodes.node_id node.to_builder
-      end
-    end
   end
 
   def input=(id)
@@ -45,6 +35,14 @@ class NeuralNet < ActiveRecord::Base
 
   def times=(x)
     train(x.to_i)
+  end
+
+  def connections
+    conns = []
+    nodes.each do |node|
+      conns += node.child_connections
+    end
+    conns
   end
 
   # ====================

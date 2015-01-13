@@ -1,9 +1,29 @@
-# json.extract! @neural_net, :serve_nodes_for_sigma
+node_index_in_row = 0
+current_layer = 0
+layer_height = 100 / @neural_net.num_layers
 
-json.nodes @neural_net.num_layers.times do |l|
-  @neural_net.loop_over_nodes(l) do |index|
-    node = layer_n_nodes(l)[i]
-    json.id node.id
-    json.x 100 / @neural_net.layer_n_nodes(node.layer).length / 2
+json.nodes @neural_net.nodes do |node|
+  if current_layer != node.layer
+    node_index_in_row = 0
   end
+  current_layer = node.layer
+  column_width = 100 / @neural_net.layer_n_nodes(node.layer).length
+
+  json.id node.id.to_s
+  json.label node.output.to_s
+  json.x column_width / 2 + node_index_in_row * column_width
+  json.y current_layer * layer_height
+  json.size 3
+  json.type node.active? ? "border" : "custom"
+  json.color "rgba(255,140,0,#{node.output})"
+
+  node_index_in_row += 1
+end
+
+json.edges @neural_net.connections do |conn|
+  json.id conn.id.to_s
+  json.source conn.parent.id.to_s
+  json.target conn.child.id.to_s
+  json.color "#000"
+  # json.size conn.weight * 10
 end

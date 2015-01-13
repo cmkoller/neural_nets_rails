@@ -1,5 +1,5 @@
 sigma.utils.pkg('sigma.canvas.nodes');
-sigma.canvas.nodes.border = (function() {
+sigma.canvas.nodes.custom = (function() {
 
   // Return the renderer itself:
   var renderer = function(node, context, settings) {
@@ -17,11 +17,7 @@ sigma.canvas.nodes.border = (function() {
 
     context.closePath();
 
-    context.closePath();
-    context.shadowColor = '#ff0';
-    context.shadowBlur = 15;
-
-    context.fillStyle = "#fff";
+    context.fillStyle = "#fff";    
     context.fill();
 
     context.fillStyle = node.color || settings('defaultNodeColor');
@@ -32,5 +28,5 @@ sigma.canvas.nodes.border = (function() {
     context.stroke();
   };
 
-      return renderer;
-    })();
+  return renderer;
+})();

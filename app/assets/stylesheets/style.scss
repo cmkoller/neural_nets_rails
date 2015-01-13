@@ -81,13 +81,13 @@ button, .button {
 
 // NODE
 // --------------------
-/* .node {
+.node {
   width: 50px;
   height: 50px;
   border-radius: 50px;
   background-color: transparent;
   margin: auto;
-  border: 5px solid \$node_purple;
+  border: 5px solid $node_purple;
   display: inline-block;
 
   .small-net & {
@@ -96,10 +96,10 @@ button, .button {
   }
 
   &.active {
-    background-color: \$node_purple;
+    background-color: $node_purple;
   }
 }
- */
+
 // ====================
 // NET EDIT
 // ====================
