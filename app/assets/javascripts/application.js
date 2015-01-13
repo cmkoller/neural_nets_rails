@@ -14,7 +14,10 @@
 //= require jquery_ujs
 //= require foundation
 //= require sigma.min
-//= require sigma.parsers.json.min.js
+//= require sigma.parsers_json.min
+//= require sigma.renderers.edgeLabels/settings
+//= require sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def
+
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
