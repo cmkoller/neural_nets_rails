@@ -20,3 +20,5 @@ group :development, :test do
   gem 'launchy'
   gem 'quiet_assets'
 end
+
+gem 'rails_12factor'
