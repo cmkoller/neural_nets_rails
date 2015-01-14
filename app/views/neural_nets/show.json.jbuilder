@@ -15,7 +15,7 @@ json.nodes @neural_net.nodes do |node|
   json.y current_layer * layer_height
   json.size 3
   json.type node.active? ? "border" : "custom"
-  json.color "rgba(148, 103, 189,#{node.output})"
+  json.color "rgba(104, 87, 130,#{node.output})"
 
   node_index_in_row += 1
 end

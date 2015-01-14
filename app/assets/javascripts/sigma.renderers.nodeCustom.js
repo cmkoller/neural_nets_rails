@@ -27,7 +27,7 @@ sigma.canvas.nodes.custom = (function() {
     context.fill();
 
     context.lineWidth =  5;
-    context.strokeStyle = '#9467BD';
+    context.strokeStyle = '#685782';
     context.stroke();
 
   };

@@ -10,11 +10,6 @@ class NeuralNet < ActiveRecord::Base
   # Small constant regulating speed of learning
   ALPHA = 0.2
 
-  def data
-    file = File.read("public/nodes.json")
-    JSON.generate(JSON.parse(file))
-  end
-
   def input=(id)
     selected_input = preset_inputs.find(id)
     feed_forward(selected_input.values.values)
