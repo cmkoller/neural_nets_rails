@@ -9,6 +9,8 @@ class Node < ActiveRecord::Base
   validates :layer,
     presence: true
 
+  THRESHOLD = 0
+
   after_initialize :init
 
   def init
@@ -21,17 +23,32 @@ class Node < ActiveRecord::Base
     end
   end
 
+  # ============================
+  # ACTIVATION FUNCTIONS
+  # ============================
+
   # SIGMOID
+  # --------------------
   # One possible function for determining output
   def sigmoid(x)
     1 / (1 + (Math::E ** (-1 * x)))
   end
 
+  # STEP FUNCTION
+  # --------------------
+  def step(x)
+    x >= 0 ? 1 : 0
+  end
+
+  # ============================
+  # HELPER FUNCTIONS FOR FF/BP
+  # ============================
+
   # UPDATE_OUTPUT
   # -------------------
   # Uses total input, threshold, and sigmoid function to update output value
   def update_output
-    write_attribute(:output, sigmoid(total_input).round(4))
+    write_attribute(:output, step(total_input).round(4))
     save
   end
 
