@@ -16,9 +16,9 @@ $(document).ready(function() {
       minNodeSize: 16,
       maxNodeSize: 16,
       minEdgeSize: 1,
-      maxEdgeSize: 20,
-      labelThreshold: 20,
-      defaultNodeType: 'custom'
+      maxEdgeSize: 10,
+      labelThreshold: 30,
+      edgeLabelSize: 'proportional'
     }
   });
 

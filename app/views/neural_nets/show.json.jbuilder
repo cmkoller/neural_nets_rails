@@ -14,8 +14,8 @@ json.nodes @neural_net.nodes do |node|
   json.x column_width / 2 + node_index_in_row * column_width
   json.y current_layer * layer_height
   json.size 3
-  json.type node.active? ? "custom" : "custom"
-  # json.color "rgba(87,99,186,#{node.output})"
+  json.type node.active? ? "border" : "custom"
+  json.color "rgba(148, 103, 189,#{node.output})"
 
   node_index_in_row += 1
 end
@@ -24,6 +24,7 @@ json.edges @neural_net.connections do |conn|
   json.id conn.id.to_s
   json.source conn.parent.id.to_s
   json.target conn.child.id.to_s
-  json.color conn.weight >= 0 ? "#FC354C" : "#9DF07C"
+  json.label "#{conn.weight}"
+  json.color conn.weight >= 0 ? "#FFBB78" : "#AEC7E8"
   json.size conn.weight.abs
 end
