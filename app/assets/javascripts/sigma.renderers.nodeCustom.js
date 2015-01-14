@@ -17,15 +17,19 @@ sigma.canvas.nodes.custom = (function() {
 
     context.closePath();
 
-    context.fillStyle = "#fff";    
+    context.shadowColor = 'transparent';
+    context.shadowBlur = 15;
+
+    context.fillStyle = "#fff";
     context.fill();
 
     context.fillStyle = node.color || settings('defaultNodeColor');
     context.fill();
 
-    context.lineWidth =  1;
-    context.strokeStyle = '#000';
+    context.lineWidth =  5;
+    context.strokeStyle = '#9467BD';
     context.stroke();
+
   };
 
   return renderer;

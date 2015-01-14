@@ -17,7 +17,7 @@ $(document).ready(function() {
       maxNodeSize: 16,
       minEdgeSize: 1,
       maxEdgeSize: 10,
-      labelThreshold: 0,
+      labelThreshold: 30,
       edgeLabelSize: 'proportional'
     }
   });
