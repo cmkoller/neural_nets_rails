@@ -1,4 +1,5 @@
 class Node < ActiveRecord::Base
+  default_scope { order('id ASC') }
   belongs_to :neural_net
   has_many :child_connections, class_name: "Connection", foreign_key: "parent_id"
   has_many :parent_connections, class_name: "Connection", foreign_key: "child_id"
@@ -48,7 +49,7 @@ class Node < ActiveRecord::Base
   # -------------------
   # Uses total input, threshold, and sigmoid function to update output value
   def update_output
-    write_attribute(:output, step(total_input).round(4))
+    write_attribute(:output, sigmoid(total_input).round(4))
     save
   end
 
@@ -80,7 +81,8 @@ class Node < ActiveRecord::Base
   end
 
   def update_output_node_error(desired)
-    write_attribute(:error, output * (1 - output) * (desired - output))
+    error = output * (1 - output) * (desired - output)
+    write_attribute(:error, error)
     save
   end
 
@@ -96,8 +98,12 @@ class Node < ActiveRecord::Base
   def update_parent_connections(alpha)
     parent_connections.each do |conn|
       parent = Node.find(conn.parent_id)
-      # binding.pry
-      conn.weight += alpha * parent.output * error
+      delta = alpha * (parent.output * conn.weight) * error
+      puts "Updating Parent Weight -- Child: #{id}, Parent: #{parent.id}"
+      puts "Parent Output: #{parent.output}"
+      puts "Parent Output * Conn Weight: #{parent.output * conn.weight}"
+      puts "Delta: #{delta}"
+      conn.weight += delta
       conn.save
     end
   end

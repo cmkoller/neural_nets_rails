@@ -8,7 +8,7 @@ json.nodes @neural_net.nodes do |node|
   column_width = 100 / @neural_net.layer_n_nodes(node.layer).length
 
   json.id node.id.to_s
-  json.label node.output.to_s
+  json.label "#{node.id}: #{node.output}"
   json.x column_width / 2 + node_index_in_row * column_width
   json.y current_layer * layer_height
   json.size 3
