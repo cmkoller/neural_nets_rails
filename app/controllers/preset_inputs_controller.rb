@@ -9,7 +9,6 @@ class PresetInputsController < ApplicationController
     @preset_input = PresetInput.new(preset_input_params)
     @preset_input.neural_net = @neural_net
     @preset_input.desired_output.neural_net = @neural_net
-
     if @preset_input.save
       flash[:notice] = "Saved preset input."
       redirect_to neural_net_preset_inputs_path(@neural_net)

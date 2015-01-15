@@ -2,7 +2,7 @@ class NeuralNet < ActiveRecord::Base
   has_many :nodes
   has_many :preset_inputs
   has_many :desired_outputs
-  has_one :selected_input, class_name: "PresetInput"
+  # has_one :selected_input, class_name: "PresetInput"
   attr_accessor :times, :input, :output
 
   validates :name, length: {maximum: 255}
@@ -10,25 +10,31 @@ class NeuralNet < ActiveRecord::Base
   # Small constant regulating speed of learning
   ALPHA = 0.2
 
-  def data
-    file = File.read("public/nodes.json")
-    JSON.generate(JSON.parse(file))
-  end
-
   def input=(id)
-    selected_input = preset_inputs.find(id)
+    self.selected_input_id = id
+    save
     feed_forward(selected_input.values.values)
   end
 
+  def selected_input
+    if selected_input_id
+      preset_inputs.find(selected_input_id)
+    end
+  end
+
   def selected_output
-    if selected_input
+    if selected_input_id
+      # input = preset_inputs.find(selected_input_id)
       selected_input.desired_output
     end
   end
 
   def output=(id)
-    selected_input = nil
+    selected_input_id = nil
     save
+    # **************************
+    # THIS MIGHT BE A PROBLEM!
+    # **************************
     desired_output = desired_outputs.find(id)
     backprop(desired_output.values.values)
   end
@@ -54,7 +60,7 @@ class NeuralNet < ActiveRecord::Base
   # Input: L, representing the layer number (0th layer is top layer)
   # Output: Array of nodes from that layer
   def layer_n_nodes(l)
-    nodes.where(neural_net_id: id, layer: l).sort_by &:id
+    nodes.where(neural_net_id: id, layer: l)#.sort_by &:id
   end
 
   # NUM_LAYERS
@@ -179,6 +185,9 @@ class NeuralNet < ActiveRecord::Base
   # => Array must be same length as first layer of nodes
 
   def feed_forward(input)
+    puts "-------------------------"
+    puts "FEED FORWARD"
+    puts "-------------------------"
     reset_all_nodes
     # Check for wrong number of inputs
     unless input.length == first_layer_nodes.length
@@ -188,26 +197,36 @@ class NeuralNet < ActiveRecord::Base
     # Pass input values to first layer of nodes
     loop_over_nodes(0) do |i|
       node = first_layer_nodes[i]
-      node.total_input = input[i]
+      node.output = input[i]
       node.save
     end
 
     # For each layer but the last, pass activation down
     (num_layers - 1).times do |layer_num|
+      puts "Layer #{layer_num}"
+      puts "---------------------------"
       cur_layer_nodes = layer_n_nodes(layer_num)
       # For each node in this layer, use the total input to calculate the output
       loop_over_nodes(layer_num) do |i|
         node = cur_layer_nodes[i]
-        node.update_output
+        unless layer_num == 0
+          node.update_output
+        end
+        puts "Node #{node.id} total input: #{node.total_input}"
+        puts "Node #{node.id} output: #{node.output}"
         #For each child of this node, add to that node's total input
         node.send_output_to_children
       end
     end
 
     # Once we've fed forward to the last layer, calculate last layer's output
+    puts "Output Layer"
+    puts "---------------------------"
     loop_over_nodes(num_layers - 1) do |i|
       node = last_layer_nodes[i]
       node.update_output
+      puts "Node #{node.id} total input: #{node.total_input}"
+      puts "Node #{node.id} output: #{node.output}"
     end
   end
 
@@ -221,21 +240,39 @@ class NeuralNet < ActiveRecord::Base
   # => Array must be same length as output layer of nodes
 
   def backprop(desired)
+    puts "-------------------------"
+    puts "BACKPROP"
+    puts "-------------------------"
     # Calculate error for output layer nodes
+    puts "Output Layer"
+    puts "----------------------"
+    puts "Desired Outputs: #{desired}"
     loop_over_nodes(num_layers - 1) do |i|
       node = last_layer_nodes[i]
-      desired = desired[i].to_i
-      node.update_output_node_error(desired)
+      puts "Node: #{node.id}"
+      current_desired = desired[i].to_i
+      puts "Desired: #{current_desired}"
+      node.update_output_node_error(current_desired)
+      puts "Node #{node.id} desired output: #{current_desired}"
+      puts "Node #{node.id} actual output: #{node.output}"
+      puts "Node #{node.id} error: #{node.error}"
       # Update connections with that node's parents
       node.update_parent_connections(ALPHA)
     end
 
     # Move upwards through layers
     reverse_loop_over_layers do |l|
-      # Only execute for middle nodes
+      # Only execute for middle nodes...
+      # So if we're at an input or output layer, skip
       if l == 0 || l == num_layers - 1
+        puts "Skipping some code - not a middle layer!"
         next
       end
+      puts "*********************************"
+      puts "*********************************"
+      puts "We're at a middle layer!"
+      puts "*********************************"
+      puts "*********************************"
       cur_layer_nodes = layer_n_nodes(l)
       # Loop over each node in layer
       loop_over_nodes(l) do |i|
