@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115164359) do
+ActiveRecord::Schema.define(version: 20150115220635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20150115164359) do
     t.float   "output",        default: 0.0, null: false
     t.float   "total_input",   default: 0.0, null: false
     t.float   "error",         default: 0.0, null: false
-    t.float   "bias",                        null: false
   end
 
   add_index "nodes", ["neural_net_id"], name: "index_nodes_on_neural_net_id", using: :btree
