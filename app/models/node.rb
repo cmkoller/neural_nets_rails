@@ -100,12 +100,6 @@ class Node < ActiveRecord::Base
     binding.pry
   end
 
-  def update_bias (alpha)
-    delta = error * alpha
-    write_attribute(:bias, bias + delta)
-    save
-  end
-
   # UPDATE_PARENT_CONNECTIONS
   # -------------------
   def update_parent_connections(alpha)
