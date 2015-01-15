@@ -146,7 +146,9 @@ class NeuralNet < ActiveRecord::Base
   # to all nodes on layer above (if applicable) and below (if applicable)
   # Returns NODE
   def create_node(l)
-    node = Node.create(neural_net_id: id, layer: l)
+    # Create a random bias between .25 and 100
+    # bias = (rand(75) + 25) / 100
+    node = Node.create(neural_net_id: id, layer: l, bias: 0)
     # Unless L is first layer, generate upward connections
     unless l <= 0
       # For each parent node...
@@ -197,7 +199,7 @@ class NeuralNet < ActiveRecord::Base
     # Pass input values to first layer of nodes
     loop_over_nodes(0) do |i|
       node = first_layer_nodes[i]
-      node.total_input = input[i]
+      node.output = input[i]
       node.save
     end
 
@@ -209,7 +211,9 @@ class NeuralNet < ActiveRecord::Base
       # For each node in this layer, use the total input to calculate the output
       loop_over_nodes(layer_num) do |i|
         node = cur_layer_nodes[i]
-        node.update_output
+        unless layer_num == 0
+          node.update_output
+        end
         puts "Node #{node.id} total input: #{node.total_input}"
         puts "Node #{node.id} output: #{node.output}"
         #For each child of this node, add to that node's total input
@@ -256,6 +260,7 @@ class NeuralNet < ActiveRecord::Base
       puts "Node #{node.id} error: #{node.error}"
       # Update connections with that node's parents
       node.update_parent_connections(ALPHA)
+      # node.update_bias(ALPHA)
     end
 
     # Move upwards through layers
@@ -279,8 +284,15 @@ class NeuralNet < ActiveRecord::Base
 
         # Update connections with that node's parents
         node.update_parent_connections(ALPHA)
+        # node.update_bias(ALPHA)
       end
     end
+    # Update parent node bias
+    # layer_n_nodes(0).each do |node|
+    #
+    #   binding.pry
+    #   node.update_bias(ALPHA)
+    # end
   end
 
   # ====================

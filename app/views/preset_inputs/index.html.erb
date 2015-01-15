@@ -20,7 +20,7 @@
       <% if @neural_net.first_layer_size > 0 %>
         <% @neural_net.first_layer_size.times do |i| %>
           <div class="columns text-center small-<%= 12/@neural_net.first_layer_size %>">
-            <%= f.check_box :values, {name: "preset_input[values][#{i}]"}, 1, -1 %>
+            <%= f.check_box :values, {name: "preset_input[values][#{i}]"}, 1, 0 %>
           </div>
         <% end %>
       <% end %>
@@ -32,7 +32,7 @@
         <%= ff.label "Desired Output Activations:" %>
         <% @neural_net.last_layer_nodes.length.times do |i| %>
           <div class="columns text-center small-<%= 12/@neural_net.last_layer_nodes.length %>">
-            <%= ff.check_box :values, {name: "preset_input[desired_output_attributes][values][#{i}]"}, 1, -1 %>
+            <%= ff.check_box :values, {name: "preset_input[desired_output_attributes][values][#{i}]"}, 1, 0 %>
           </div>
         <% end %>
       <% end %>

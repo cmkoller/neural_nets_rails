@@ -78,19 +78,32 @@ class Node < ActiveRecord::Base
       desired += child_error * weight
     end
     desired
+    binding.pry
+  end
+
+  def output_node_error(desired)
+    output * (1 - output) * (desired - output)
+  end
+
+  def middle_node_error
+    output * (1 - output) * get_middle_desired_output
   end
 
   def update_output_node_error(desired)
-    error = output * (1 - output) * (desired - output)
-    write_attribute(:error, error)
+    write_attribute(:error, output_node_error(desired))
     save
   end
 
-  def update_middle_node_error()
-    desired = get_middle_desired_output
-    write_attribute(:error,  output * (1 - output) * desired)
+  def update_middle_node_error
+    write_attribute(:error, middle_node_error)
     save
     binding.pry
+  end
+
+  def update_bias (alpha)
+    delta = error * alpha
+    write_attribute(:bias, bias + delta)
+    save
   end
 
   # UPDATE_PARENT_CONNECTIONS
