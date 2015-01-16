@@ -40,17 +40,15 @@ body {
 $top-bar-height: 65px;
 
 .header-wrapper {
-  background:
-    linear-gradient(
-      rgba( $dark_base_color, .5 ),
-      rgba( $dark_base_color, .5 )
-    ),
-    url("nodes.jpg");
-  background-position: -76px -7px;
+  background-color: black;
 }
 
 .top-bar {
-  background-color: transparent;
+  background: url("nodes.jpg");
+  background-repeat: no-repeat;
+  background-size: 73%;
+  background-position: 75px -7px;
+
 
   .top-bar-section li:not(.has-form) a:not(.button),
   &, li a, .name h1 a,
