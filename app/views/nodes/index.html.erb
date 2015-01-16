@@ -8,3 +8,14 @@
 <% end %>
 
 <%= render 'neural_nets/net_view_with_node_buttons' %>
+
+<div class="row text-center">
+  <%= form_for @neural_net do |f| %>
+    <%= f.label :generate_bias do %>
+      <%= f.check_box :generate_bias %>
+      Generate bias nodes?
+    <% end %>
+    <%= f.label :generate_bias do %><a href="#">What does this mean?</a><% end %>
+    <%= f.submit "I'm Done!", class: "button" %>
+  <% end %>
+</div>

@@ -5,7 +5,6 @@
     <% node = @neural_net.layer_n_nodes(layer)[i] %>
     <div class="columns text-center small-<%= 12/num_nodes %>">
       <div class="node <%= node.output >= 1 ? 'active' : 'inactive' %>">
-        <%= node.output %>
       </div>
     </div>
   <% end %>

@@ -29,29 +29,13 @@
       <div id="graph-container"></div>
   </div>
   <!-- Show Output vs. Desired Output -->
+
   <% if @desired_output %>
-    <hr />
-    <div class="row output layer">
-      <div class="columns small-6">
-        <h4>Desired Output</h4>
-        <% num_nodes = @desired_output.values.length %>
-        <% @desired_output.values.values.each do |input| %>
-        <div class="columns text-center small-<%= 12/num_nodes %>">
-          <div class="node <%= input.to_i >= 1 ? 'active' : 'inactive' %>">
-          </div>
-        </div>
-        <% end %>
-      </div>
-      <div class="columns small-6">
-        <h4>Actual Output</h4>
-        <%= render partial: 'neural_nets/layer', locals: {layer: @neural_net.num_layers - 1} %>
-      </div>
-    </div>
     <!-- Backprop Button -->
-    <div class="row text_center">
+    <div class="row text-center backpro">
       <%= form_for @neural_net do |f| %>
       <%= f.hidden_field :output, value: @desired_output.id %>
-      <%= f.submit "Run Backpropagation" %>
+      <%= f.submit "Run Backpropagation", class: "button"%>
       <% end %>
     </div>
   <% end %>

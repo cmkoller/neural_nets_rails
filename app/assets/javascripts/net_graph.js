@@ -18,7 +18,8 @@ $(document).ready(function() {
       minEdgeSize: 1,
       maxEdgeSize: 10,
       labelThreshold: 30,
-      edgeLabelSize: 'proportional'
+      edgeLabelSize: 'proportional',
+      sideMargin: 2
     }
   });
 

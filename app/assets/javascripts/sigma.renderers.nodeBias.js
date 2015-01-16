@@ -1,5 +1,5 @@
 sigma.utils.pkg('sigma.canvas.nodes');
-sigma.canvas.nodes.border = (function() {
+sigma.canvas.nodes.bias = (function() {
 
   // Return the renderer itself:
   var renderer = function(node, context, settings) {
@@ -33,5 +33,5 @@ sigma.canvas.nodes.border = (function() {
 
   };
 
-      return renderer;
-    })();
+  return renderer;
+})();

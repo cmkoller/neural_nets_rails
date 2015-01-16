@@ -78,7 +78,6 @@ class Node < ActiveRecord::Base
       desired += child_error * weight
     end
     desired
-    binding.pry
   end
 
   def output_node_error(desired)
@@ -97,7 +96,6 @@ class Node < ActiveRecord::Base
   def update_middle_node_error
     write_attribute(:error, middle_node_error)
     save
-    binding.pry
   end
 
   # UPDATE_PARENT_CONNECTIONS
