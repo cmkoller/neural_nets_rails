@@ -30,7 +30,7 @@ json.edges @neural_net.connections do |conn|
   json.id conn.id.to_s
   json.source conn.parent.id.to_s
   json.target conn.child.id.to_s
-  json.label "#{conn.weight}"
+  json.label "            #{conn.weight}"
   json.color conn.weight >= 0 ? "#FFBB78" : "#AEC7E8"
   json.size conn.weight.abs
 end

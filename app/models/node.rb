@@ -108,7 +108,7 @@ class Node < ActiveRecord::Base
       puts "Parent Output: #{parent.output}"
       puts "Parent Output * Conn Weight: #{parent.output * conn.weight}"
       puts "Delta: #{delta}"
-      conn.weight += delta
+      conn.weight += delta.round(3)
       conn.save
     end
   end
