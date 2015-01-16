@@ -12,7 +12,7 @@ class NodesController <ApplicationController
   def destroy
     @node = Node.destroy(params[:id])
     @neural_net = NeuralNet.find(params[:neural_net_id])
-    redirect_to neural_net_nodes_path(@neural_net)    
+    redirect_to neural_net_nodes_path(@neural_net)
   end
 
   private

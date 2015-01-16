@@ -3,18 +3,16 @@ class NeuralNet < ActiveRecord::Base
   has_many :preset_inputs
   has_many :desired_outputs
   # has_one :selected_input, class_name: "PresetInput"
-  attr_accessor :times, :input, :output
+  attr_accessor :times, :input, :output, :generate_bias
 
   validates :name, length: {maximum: 255}
 
   # Small constant regulating speed of learning
   ALPHA = 0.2
 
-  def input=(id)
-    self.selected_input_id = id
-    save
-    feed_forward(selected_input.values.values)
-  end
+  # =======================================
+  # HELPER FUNCTIONS - Additional Getters
+  # =======================================
 
   def selected_input
     if selected_input_id
@@ -29,20 +27,6 @@ class NeuralNet < ActiveRecord::Base
     end
   end
 
-  def output=(id)
-    selected_input_id = nil
-    save
-    # **************************
-    # THIS MIGHT BE A PROBLEM!
-    # **************************
-    desired_output = desired_outputs.find(id)
-    backprop(desired_output.values.values)
-  end
-
-  def times=(x)
-    train(x.to_i)
-  end
-
   def connections
     conns = []
     nodes.each do |node|
@@ -51,16 +35,24 @@ class NeuralNet < ActiveRecord::Base
     conns
   end
 
-  # ====================
-  # HELPER FUNCTIONS
-  # ====================
+  # =======================================
+  # HELPER FUNCTIONS - Navigation of net
+  # =======================================
 
   # LAYER_N_NODES
   # --------------------
   # Input: L, representing the layer number (0th layer is top layer)
   # Output: Array of nodes from that layer
   def layer_n_nodes(l)
-    nodes.where(neural_net_id: id, layer: l)#.sort_by &:id
+    nodes.where(neural_net_id: id, layer: l)
+  end
+
+  # NONBIAS_LAYER_N_NODES
+  # --------------------
+  # Input: L, representing the layer number (0th layer is top layer)
+  # Output: Array of nodes from that layer, excluding bias nodes
+  def nonbias_layer_n_nodes(l)
+    nodes.where(neural_net_id: id, layer: l, bias: false)
   end
 
   # NUM_LAYERS
@@ -78,6 +70,12 @@ class NeuralNet < ActiveRecord::Base
   # --------------------
   def first_layer_nodes
     layer_n_nodes(0)
+  end
+
+  # NONBIAS_FIRST_LAYER_NODES
+  # --------------------
+  def first_layer_nodes
+    nonbias_layer_n_nodes(0)
   end
 
   # FIRST_LAYER_SIZE
@@ -124,60 +122,142 @@ class NeuralNet < ActiveRecord::Base
     outputs
   end
 
-  # RESET_ALL_NODES
-  # --------------------
-  # Resets all OUTPUT and TOTAL_INPUT fields to 0
-  def reset_all_nodes
-    NeuralNet.find(id).nodes.each do |node|
-      node.output = 0.0
-      node.total_input = 0.0
-      node.save
-    end
-  end
-
   # ====================
   # CREATION/DELETION METHODS
   # ====================
 
+  # GENERATE_CHILD_CONNECTIONS
+  # -----------------------------
+  # Input: NODE, a node
+  # Generates randomly weighted connections from NODE to
+  # each node on the layer below.
+  def generate_child_connections(node)
+    l = node.layer
+    # For each child node...
+    loop_over_nodes(l + 1) do |i|
+      child = layer_n_nodes(l + 1)[i]
+      # Generate a random connection weight between -1 and 1
+      weight = rand * 2 - 1
+      Connection.create(parent_id: node.id,
+      child_id: child.id,
+      weight: weight.round(3))
+    end
+  end
+
+  # GENERATE_PARENT_CONNECTIONS
+  # -----------------------------
+  # Input: NODE, a node
+  # Generates randomly weighted connections from NODE to
+  # each node on the layer above.
+  def generate_parent_connections(node)
+    l = node.layer
+    # For each parent node...
+    loop_over_nodes(l - 1) do |i|
+      parent = layer_n_nodes(l - 1)[i]
+      # Generate a random connection weight between -1 and 1
+      weight = rand * 2 - 1
+      Connection.create(parent_id: parent.id,
+      child_id: node.id,
+      weight: weight.round(3))
+    end
+  end
+
   # CREATE_NODE
   # --------------------
   # Input: L, representing the layer number (0th layer is top layer)
-  # Generates a new node on layer L with randomly weighted connections
+  # => Generates a new node on layer L with randomly weighted connections
   # to all nodes on layer above (if applicable) and below (if applicable)
-  # Returns NODE
+  # => If there is not yet a bias node on that layer, add a bias node
+  # => Returns NODE
   def create_node(l)
     node = Node.create(neural_net_id: id, layer: l)
     # Unless L is first layer, generate upward connections
     unless l <= 0
-      # For each parent node...
-      loop_over_nodes(l - 1) do |i|
-        parent = layer_n_nodes(l - 1)[i]
-        # Generate a random connection weight between -1 and 1
-        weight = rand * 2 - 1
-        Connection.create(parent_id: parent.id,
-        child_id: node.id,
-        weight: weight.round(3))
-      end
+      generate_parent_connections(node)
     end
     # Unless L is last layer, generate downward connections
     unless l >= num_layers - 1
-      # For each child node...
-      loop_over_nodes(l + 1) do |i|
-        child = layer_n_nodes(l + 1)[i]
-        # Generate a random connection weight between -1 and 1
-        weight = rand * 2 - 1
-        Connection.create(parent_id: node.id,
-        child_id: child.id,
-        weight: weight.round(3))
-      end
+      generate_child_connections(node)
     end
     node
+  end
+
+  # ----------------------
+  # BIAS NODE MANAGEMENT
+  # ----------------------
+
+  # BIAS_NODE?
+  # --------------------
+  # Input: L, represeting the layer number
+  # Checks to see if there is an existing bias node on the layer
+  def bias_node?(l)
+    layer_n_nodes(l).any? { |node| node.bias }
+  end
+
+  # CREATE_BIAS_NODE
+  # --------------------
+  # Input: L, representing the layer number
+  # => Generates a bias node on layer L with randomly weighted connections
+  # to all nodes on layer below.
+  # => Returns node
+  def create_bias_node(l)
+    Node.create(neural_net_id: id, layer: l, bias: true, output: 1)
+  end
+
+  # GENERATE_BIAS
+  # --------------------
+  # To be called when node adding and subtracting is complete.
+  # Generates a bias node for each non-output layer, each connected
+  # to all nodes below but none above.
+  def generate_bias=(x)
+    # For each layer except the output...
+    (num_layers - 1).times do |l|
+      # Unless there's already a bias node...
+      unless bias_node?(l)
+        node = create_bias_node(l)
+        generate_child_connections(node)
+      end
+    end
+  end
+
+  # ============================
+  # FUNCTIONS FOR RUNNING NET
+  # ============================
+
+  def input=(id)
+    self.selected_input_id = id
+    save
+    feed_forward(selected_input.values.values)
+  end
+
+  def output=(id)
+    selected_input_id = nil
+    save
+    desired_output = desired_outputs.find(id)
+    backprop(desired_output.values.values)
+  end
+
+  def times=(x)
+    train(x.to_i)
   end
 
 
   # ====================
   # FEED FORWARD
   # ====================
+
+  # RESET_ALL_NODES
+  # --------------------
+  # Resets all OUTPUT and TOTAL_INPUT fields to 0
+  def reset_all_nodes
+    NeuralNet.find(id).nodes.each do |node|
+      unless node.bias
+        node.output = 0.0
+        node.total_input = 0.0
+        node.save
+      end
+    end
+  end
 
   # FEED_FORWARD
   # --------------------
@@ -195,7 +275,7 @@ class NeuralNet < ActiveRecord::Base
     end
 
     # Pass input values to first layer of nodes
-    loop_over_nodes(0) do |i|
+    first_layer_nodes.length.times do |i|
       node = first_layer_nodes[i]
       node.output = input[i]
       node.save
@@ -304,6 +384,5 @@ class NeuralNet < ActiveRecord::Base
       backprop(output.values.values)
     end
   end
-
 
 end
