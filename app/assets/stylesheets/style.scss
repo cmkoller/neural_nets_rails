@@ -1,18 +1,11 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,900,700italic|Arvo:400,700|Josefin+Slab:300,400,600,700|Varela+Round|Raleway:400,800,900,600,200,100|Raleway+Dots);
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400|Open+Sans:400italic,400,600);
 
-@font-face {
-  font-family: "AdecI";
-  src: asset-url('adec_initials.otf', font);
-}
+// ====================
+// FOUNDATION OVERRIDES
+// ====================
 
-@font-face {
-  font-family: "AdecM";
-  src: asset-url('adec_main.otf', font);
-}
-
-@font-face {
-  font-family: "AdecT";
-  src: asset-url('adec_text.otf', font);
+small {
+  font-size: 73%;
 }
 
 // ====================
@@ -30,13 +23,15 @@ $accent_3: #0574A6;
 body {
   background-color: $light_base_color;
 
-  h1, h2, h3, h4, h5, h6, & {
+  &, h1, h2, h3, h4, h5, h6 {
     color: $dark_text_color;
+
+    &, button, .button,
+    .top-bar-section ul li > a {
+      font-family: Open Sans;
+    }
   }
 }
-
-
-
 
 // ====================
 // HEADER
