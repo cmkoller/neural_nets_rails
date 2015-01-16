@@ -1,3 +1,20 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,900,700italic|Arvo:400,700|Josefin+Slab:300,400,600,700|Varela+Round|Raleway:400,800,900,600,200,100|Raleway+Dots);
+
+@font-face {
+  font-family: "AdecI";
+  src: asset-url('adec_initials.otf', font);
+}
+
+@font-face {
+  font-family: "AdecM";
+  src: asset-url('adec_main.otf', font);
+}
+
+@font-face {
+  font-family: "AdecT";
+  src: asset-url('adec_text.otf', font);  
+}
+
 // ====================
 // BODY & TEXT STYLING
 // ====================
@@ -28,14 +45,13 @@ body {
 $top-bar-height: 65px;
 
 .header-wrapper {
-/*   background:
-  linear-gradient(
-    rgba( \$dark_base_color, .5 ),
-    rgba( \$dark_base_color, .5 )
-  ),
-  url("nodes.png"); */
-  background: $dark-base-color;
-  background-size: cover;
+  background:
+    linear-gradient(
+      rgba( $dark_base_color, .5 ),
+      rgba( $dark_base_color, .5 )
+    ),
+    url("nodes.jpg");
+  background-position: -76px -7px;
 }
 
 .top-bar {
@@ -51,6 +67,13 @@ $top-bar-height: 65px;
 
   .name h1 a {
     color: $light_base_color;
+    font-family: Lato;
+    font-weight: 200;
+    font-size: 2em;
+
+    strong {
+      font-weight: 400;
+    }
   }
   .top-bar-section {
     ul li,
