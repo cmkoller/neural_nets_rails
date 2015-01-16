@@ -19,8 +19,7 @@ $(document).ready(function() {
       maxEdgeSize: 10,
       labelThreshold: 30,
       edgeLabelSize: 'proportional',
-      mouseWheelEnabled: false,
-      doubleClickEnabled: false
+      sideMargin: 2
     }
   });
 
