@@ -3,7 +3,7 @@
 $dark_base_color: #332B40;
 $light_base_color: #F7F7F7;
 $dark_text_color: #413E44;
-$node_purple: #3E2D72;
+$node_purple: #32225D;
 $accent_1: #EFE672;
 $accent_2: #98A942;
 $accent_3: #0574A6;
@@ -30,6 +30,10 @@ button, .button {
     background-color: darken($accent_3, 6%);
     border-color: darken($accent_3, 6%);
   }
+}
+
+.medium-offset-half {
+  margin-left: 4.1665% !important;
 }
 
 // ====================
