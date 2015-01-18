@@ -1,46 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>NetBuilder</title>
-
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/modernizr" %>
-    <%= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/d3/3.0.8/d3.min.js' %>
-    <%= csrf_meta_tags %>
-
-  </head>
-
-  <body>
-    <div class="columns header-wrapper small-12">
-    <div class="row">
-      <nav class="top-bar" data-topbar role="navigation">
-          <ul class="title-area">
-            <li class="name">
-              <h1><a href="/"><strong>net</strong>builder</a></h1>
-            </li>
-            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-          </ul>
-
-          <section class="top-bar-section">
-            <!-- Right Nav Section -->
-            <ul class="right">
-              <li class="active"><a href="#">Home</a></li>
-              <li class="has-dropdown">
-                <a href="#">Right Button Dropdown</a>
-                <ul class="dropdown">
-                  <li><a href="#">First link in dropdown</a></li>
-                  <li class="active"><a href="#">Active link in dropdown</a></li>
-                </ul>
-              </li>
-            </ul>
-          </section>
-      </nav>
-    </div>
-    </div>
+<%= render 'layouts/header' %>
 
     <div class="row body-wrapper">
       <div class="columns small-12">
