@@ -19,7 +19,7 @@ class Node < ActiveRecord::Base
   end
 
   def active?
-    if total_input >= 1
+    if output >= 1 || total_input >= 1
       "active"
     end
   end

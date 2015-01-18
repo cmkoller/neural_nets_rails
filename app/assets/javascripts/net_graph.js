@@ -19,7 +19,8 @@ $(document).ready(function() {
       maxEdgeSize: 10,
       labelThreshold: 30,
       edgeLabelSize: 'proportional',
-      sideMargin: 2
+      sideMargin: 3,
+      zoomMin: 0.4
     }
   });
 

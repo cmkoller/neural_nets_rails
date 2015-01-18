@@ -17,8 +17,10 @@ sigma.canvas.nodes.custom = (function() {
 
     context.closePath();
 
-    context.shadowColor = 'transparent';
-    context.shadowBlur = 15;
+    context.lineWidth =  9;
+    context.strokeStyle = '#3E2D72';
+    context.stroke();
+
 
     context.fillStyle = "#fff";
     context.fill();
@@ -26,8 +28,8 @@ sigma.canvas.nodes.custom = (function() {
     context.fillStyle = node.color || settings('defaultNodeColor');
     context.fill();
 
-    context.lineWidth =  5;
-    context.strokeStyle = '#685782';
+    context.lineWidth =  2;
+    context.strokeStyle = '#fff';
     context.stroke();
 
   };

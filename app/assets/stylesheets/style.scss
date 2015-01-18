@@ -1,5 +1,13 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:100,400|Open+Sans:400italic,400,600);
 
+$dark_base_color: #332B40;
+$light_base_color: #F7F7F7;
+$dark_text_color: #413E44;
+$node_purple: #3E2D72;
+$accent_1: #EFE672;
+$accent_2: #98A942;
+$accent_3: #0574A6;
+
 // ====================
 // FOUNDATION OVERRIDES
 // ====================
@@ -8,20 +16,28 @@ small {
   font-size: 73%;
 }
 
+.panel, #container {
+  border: none;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+button, .button {
+  background-color: transparent;
+  border: 3px solid $accent_3;
+  color: $accent_3;
+
+  &:hover, &:focus, &:hover, &:focus {
+    background-color: darken($accent_3, 6%);
+    border-color: darken($accent_3, 6%);
+  }
+}
+
 // ====================
 // BODY & TEXT STYLING
 // ====================
 
-$dark_base_color: #332B40;
-$light_base_color: #F7F7F7;
-$dark_text_color: #413E44;
-$node_purple: #685782;
-$accent_1: #EFE672;
-$accent_2: #98A942;
-$accent_3: #0574A6;
-
 body {
-  background-color: $light_base_color;
+  background: $light_base_color;
 
   &, h1, h2, h3, h4, h5, h6 {
     color: $dark_text_color;
@@ -44,7 +60,7 @@ $top-bar-height: 65px;
 }
 
 .top-bar {
-  background: url("nodes copy.jpg");
+  background: url("nodes copy 2.jpg");
   background-repeat: no-repeat;
   background-size: 73%;
   background-position: 75px -7px;
@@ -83,14 +99,6 @@ $top-bar-height: 65px;
   }
 }
 
-button, .button {
-  background-color: $accent_3;
-
-  &:hover, &:focus, &:hover, &:focus {
-    background-color: darken($accent_3, 6%);
-  }
-}
-
 // ====================
 // NET VIEW
 // ====================
@@ -102,7 +110,6 @@ button, .button {
 
   #graph-container {
     background-color: white;
-    border: 1px solid #ccc;
   }
 }
 
@@ -121,12 +128,17 @@ button, .button {
   border-radius: 50px;
   background-color: transparent;
   margin: auto;
-  border: 5px solid $node_purple;
+  border: 3px solid $light_base_color;
+  box-shadow: 0 0 0 5px $node_purple;
   display: inline-block;
+  vertical-align: middle;
 
   .small-net & {
     width: 20px;
     height: 20px;
+    border: 2px solid $light_base_color;
+    box-shadow: 0 0 0 2px $node_purple;
+    margin-right: 5px;
   }
 
   &.active {
@@ -150,5 +162,24 @@ button, .button {
     width: 30px;
     border-radius: 11px;
     height: 30px;
+  }
+}
+
+
+// ====================
+// INPUT SELECTION
+// ====================
+
+.input-selection {
+  .input-section {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    &:hover {
+      background-color: rgba(0,0,0,.05);
+    }
+  }
+
+  hr {
+    margin-top: 0;
   }
 }

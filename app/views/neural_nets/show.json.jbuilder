@@ -18,12 +18,12 @@ json.nodes @neural_net.nodes do |node|
   end
 
   json.id node.id.to_s
-  json.label "#{node.id}: #{node.output}"
+  json.label "  Output: #{node.output}"
   json.x node.bias? ? 100 : (column_width / 2 + node_index_in_row * column_width)
   json.y current_layer * layer_height
   json.size 3
   json.type type
-  json.color "rgba(104, 87, 130,#{node.output})"
+  json.color "rgba(64, 45, 114,#{node.output})"
 end
 
 json.edges @neural_net.connections do |conn|
@@ -31,6 +31,6 @@ json.edges @neural_net.connections do |conn|
   json.source conn.parent.id.to_s
   json.target conn.child.id.to_s
   json.label "            #{conn.weight}"
-  json.color conn.weight >= 0 ? "#FFBB78" : "#AEC7E8"
+  json.color conn.weight >= 0 ? "#FFA74C" : "#44AFE0"
   json.size conn.weight.abs
 end

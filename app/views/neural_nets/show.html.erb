@@ -1,6 +1,6 @@
 <h2><%= @neural_net.name %></h2>
 
-<div class="columns medium-3 panel small-net">
+<div class="columns medium-3 panel small-net input-selection">
   <%= render 'run_x_times' %>
   <hr />
   <%= render 'select_input' %>
@@ -32,10 +32,10 @@
 
   <% if @desired_output %>
     <!-- Backprop Button -->
-    <div class="row text-center backpro">
+    <div class="row text-center backprop">
       <%= form_for @neural_net do |f| %>
       <%= f.hidden_field :output, value: @desired_output.id %>
-      <%= f.submit "Run Backpropagation", class: "button"%>
+      <%= f.submit "Run Backpropagation", class: "button round"%>
       <% end %>
     </div>
   <% end %>
