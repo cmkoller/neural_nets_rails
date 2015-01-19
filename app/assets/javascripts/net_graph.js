@@ -20,7 +20,10 @@ if ($(".neural_nets.show").length > 0 || $(".neural_nets.update").length > 0) {
         labelThreshold: 30,
         edgeLabelSize: 'proportional',
         sideMargin: 3,
-        zoomMin: 0.4
+        zoomMin: 0.4,
+        activeColor: "#FFA74C",
+        nodePurple:" #3E2B73",
+        biasNodeColor: "#00BD3E"
       }
     });
 

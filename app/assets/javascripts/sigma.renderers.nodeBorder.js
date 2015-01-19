@@ -18,11 +18,11 @@ sigma.canvas.nodes.border = (function() {
     context.closePath();
 
     context.lineWidth =  19;
-    context.strokeStyle = '#FFA74C';
+    context.strokeStyle = settings('activeColor');
     context.stroke();
 
     context.lineWidth =  9;
-    context.strokeStyle = '#3E2D72';
+    context.strokeStyle = settings('nodePurple');
     context.stroke();
 
     context.fillStyle = "#fff";

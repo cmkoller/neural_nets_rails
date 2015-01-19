@@ -18,17 +18,17 @@ sigma.canvas.nodes.bias = (function() {
     context.closePath();
 
     context.lineWidth =  19;
-    context.strokeStyle = '#FFA74C';
+    context.strokeStyle = settings('activeColor');
     context.stroke();
 
     context.lineWidth =  9;
-    context.strokeStyle = '#3E2D72';
+    context.strokeStyle = settings('nodePurple');
     context.stroke();
 
     context.fillStyle = "#fff";
     context.fill();
 
-    context.fillStyle = "#38BD64"//node.color || settings('defaultNodeColor');
+    context.fillStyle = settings('biasNodeColor');
     context.fill();
 
     context.lineWidth =  2;

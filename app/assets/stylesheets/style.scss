@@ -3,7 +3,7 @@
 $dark_base_color: #332B40;
 $light_base_color: #F7F7F7;
 $dark_text_color: #413E44;
-$node_purple: #32225D;
+$node_purple: #3E2B73;
 $accent_1: #EFE672;
 $accent_2: #3988E8;
 $accent_3: #F96353;
@@ -61,7 +61,7 @@ body {
     color: $accent_2;
     &:hover {
       text-decoration: underline;
-      color: $accent_3;
+      color: darken($accent_2, 10%);
     }
   }
 
