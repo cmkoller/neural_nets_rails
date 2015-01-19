@@ -13,13 +13,6 @@
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
+ *= require slick
 
  */
-
- #graph-container {
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   position: absolute;
- }

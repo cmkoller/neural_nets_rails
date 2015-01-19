@@ -17,7 +17,11 @@
 //= require sigma.parsers_json.min
 //= require sigma.renderers.edgeLabels/settings
 //= require sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def
-
+//= require foundation.orbit
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+$(document).ready(function(){
+  $('.slider').slick();
+});
