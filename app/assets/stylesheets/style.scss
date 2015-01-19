@@ -5,8 +5,8 @@ $light_base_color: #F7F7F7;
 $dark_text_color: #413E44;
 $node_purple: #32225D;
 $accent_1: #EFE672;
-$accent_2: #98A942;
-$accent_3: #0574A6;
+$accent_2: #3988E8;
+$accent_3: #F96353;
 
 // ====================
 // FOUNDATION OVERRIDES
@@ -25,12 +25,12 @@ label {
   box-shadow: 0 1px 1px rgba(0,0,0,0.3);
 }
 
-button:not(.node-edit-button .button), .button:not(.node-edit-button .button) {
+button, .button {
   background-color: transparent;
   border: 3px solid $accent_3;
   color: $accent_3;
 
-  &:hover, &:focus, &:hover, &:focus {
+  &:hover, &:focus {
     background-color: darken($accent_3, 6%);
     border-color: darken($accent_3, 6%);
   }
@@ -57,9 +57,14 @@ body {
     font-family: Open Sans;
   }
 
-  a:hover:not(.name h1 a) {
-    text-decoration: underline;
+  a {
+    color: $accent_2;
+    &:hover {
+      text-decoration: underline;
+      color: $accent_3;
+    }
   }
+
 }
 
 // ====================
@@ -73,7 +78,7 @@ $top-bar-height: 65px;
 }
 
 .top-bar {
-  background: url(asset-path("nodes copy 2.jpg"));
+  background: url(asset-path("nodes copy.jpg"));
   background-repeat: no-repeat;
   background-size: 73%;
   background-position: 75px -7px;
@@ -105,6 +110,7 @@ $top-bar-height: 65px;
     }
 
     &:hover {
+      text-decoration: none;
       color: darken($light_base_color,10%);
     }
   }
@@ -224,6 +230,10 @@ $top-bar-height: 65px;
   text-align: center;
 
   .button.small {
+    background-color: $accent_2;
+    border: none;
+    color: white;
+
     padding-top: 0.3rem;
     padding-right: .65rem;
     padding-bottom: 0.33rem;
@@ -232,6 +242,12 @@ $top-bar-height: 65px;
     width: 30px;
     border-radius: 11px;
     height: 30px;
+
+
+    &:hover, &:focus {
+      background-color: darken($accent_2, 15%);
+      border-color: darken($accent_2, 15%);
+    }
   }
 }
 

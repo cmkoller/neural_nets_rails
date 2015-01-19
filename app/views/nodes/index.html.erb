@@ -19,7 +19,27 @@
         <%= f.check_box :generate_bias %>
         Generate bias nodes?
       <% end %>
-      <%= f.label :generate_bias do %><a href="#">What does this mean?</a><% end %>
+      <%= f.label :generate_bias do %>
+        <a href="#" data-reveal-id="bias_modal">What does this mean?</a>
+
+        <div id="bias_modal" class="reveal-modal" data-reveal>
+          <p class="lead">Bias Nodes</p>
+          <div class="columns small-12 medium-8">
+            <p>Bias nodes are optional, but can be very important for the proper functioning
+            of a neural net! In essence, they exist to provide some constant amount of
+            activation to the net. This means that even when you're deciding to give it inputs of
+            "0", the net still has something to use as a base for training.</p>
+            <p>If you choose to use bias nodes for your training, the program will automatically generate
+              an extra node at the end of every layer except the output. This node will always have an
+              output of of 1. For the purposes of creating your inputs and outputs for the net,
+              ignore the bias nodes! They'll just be in the background doing their job.</p>
+          </div>
+          <div class="columns small-12 medium-4">
+            <%= image_tag "bias_node.png" %>
+          </div>
+          <a class="close-reveal-modal">&#215;</a>
+        </div>
+      <% end %>
     </div>
     <div class="columns small-6 medium-3 text-left end">
       <%= f.submit "I'm Done!", class: "button round" %>
