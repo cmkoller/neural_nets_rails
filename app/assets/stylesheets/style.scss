@@ -46,7 +46,6 @@ body {
   &, h1, h2, h3, h4, h5, h6 {
     color: $dark_text_color;
     font-family: Lato;
-    font-weight: 200;
   }
 
   &, button, .button,
@@ -88,6 +87,12 @@ $top-bar-height: 65px;
 
     strong {
       font-weight: 400;
+    }
+
+    &:before {
+      content: "";
+      background-image: url("logo.png");
+      background-size: 40px 40px;
     }
   }
   .top-bar-section {
