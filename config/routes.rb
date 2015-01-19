@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     resources :preset_inputs, only: [:index, :create, :destroy]
   end
 
-  resources :statics, only: [:index]
+  get "statics/learn"
+
 
 
   # Rails.application.routes.draw do

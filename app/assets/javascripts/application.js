@@ -17,7 +17,12 @@
 //= require sigma.parsers_json.min
 //= require sigma.renderers.edgeLabels/settings
 //= require sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def
-
+//= require slick.min
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+
+$(document).ready(function(){
+  $('.your-class').slick();
+});

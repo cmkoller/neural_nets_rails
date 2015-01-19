@@ -13,13 +13,7 @@
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
+ *= require slick
 
  */
-
- #graph-container {
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   position: absolute;
- }
+ @font-face { font-family: "slick"; src: url(asset-path("slick.eot")); src: url(asset-path("slick.eot?#iefix")) format("embedded-opentype"), url(asset-path("slick.woff")) format("woff"), url(asset-path("slick.ttf")) format("truetype"), url(asset-path("slick.svg#slick")) format("svg"); font-weight: normal; font-style: normal; }
