@@ -3,19 +3,24 @@
 <%= form_for @neural_net do |f| %>
   <%= f.label :name, "Name:" %>
   <%= f.text_field :name, required: true %>
+  <%= f.label :description, "Short Description:" %>
+  <%= f.text_field :description %>
 
-  <%= f.submit "Save Net", :class => ["button", "small", "round"] %>
 <% end %>
 
 <%= render 'neural_nets/net_view_with_node_buttons' %>
 
 <div class="row text-center">
   <%= form_for @neural_net do |f| %>
-    <%= f.label :generate_bias do %>
-      <%= f.check_box :generate_bias %>
-      Generate bias nodes?
-    <% end %>
-    <%= f.label :generate_bias do %><a href="#">What does this mean?</a><% end %>
-    <%= f.submit "I'm Done!", class: "button round" %>
+    <div class="columns small-6 medium-3 medium-offset-3 text-left">
+      <%= f.label :generate_bias do %>
+        <%= f.check_box :generate_bias %>
+        Generate bias nodes?
+      <% end %>
+      <%= f.label :generate_bias do %><a href="#">What does this mean?</a><% end %>
+    </div>
+    <div class="columns small-6 medium-3 text-left end">
+      <%= f.submit "I'm Done!", class: "button round" %>
+    </div>
   <% end %>
 </div>
