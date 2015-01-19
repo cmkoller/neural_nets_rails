@@ -52,6 +52,10 @@ body {
   .top-bar-section ul li > a {
     font-family: Open Sans;
   }
+
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 // ====================
@@ -84,6 +88,7 @@ $top-bar-height: 65px;
     font-family: Lato;
     font-weight: 200;
     font-size: 2em;
+    transition: color .2s;
 
     strong {
       font-weight: 400;
@@ -93,6 +98,11 @@ $top-bar-height: 65px;
       content: "";
       background-image: url(asset-path("logo.png"));
       background-size: 40px 40px;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: darken($light_base_color,10%);
     }
   }
   .top-bar-section {
