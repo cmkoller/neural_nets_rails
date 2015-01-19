@@ -16,6 +16,10 @@ small {
   font-size: 73%;
 }
 
+label {
+  color: darken($light_base_color, 40%);
+}
+
 .panel, #container {
   border: none;
   box-shadow: 0 1px 1px rgba(0,0,0,0.3);
@@ -206,6 +210,15 @@ $top-bar-height: 65px;
 // ====================
 // NET EDIT
 // ====================
+
+.net-create {
+  margin-top: 3em;
+}
+
+.bias input[type="checkbox"] {
+  margin-bottom: 0;
+  margin-top: 1.5em;
+}
 
 .node-edit-button {
   text-align: center;
