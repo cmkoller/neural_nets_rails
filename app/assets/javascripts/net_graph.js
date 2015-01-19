@@ -1,4 +1,4 @@
-$(".neural_nets.show").ready(function() {
+$(document).ready(function() {
 if ($(".neural_nets.show").length > 0 || $(".neural_nets.update").length > 0) {
     var g = {
       nodes: [],
@@ -27,7 +27,7 @@ if ($(".neural_nets.show").length > 0 || $(".neural_nets.update").length > 0) {
       }
     });
 
-    sigma.parsers.json(document.URL + '.json',
+    sigma.parsers.json(window.location.pathname + '.json',
       s,
       function() {
         // this below adds x, y attributes as well as size = degree of the node

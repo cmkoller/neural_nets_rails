@@ -5,9 +5,12 @@
 <div class="columns medium-3 panel small-net input-selection">
   <%= render 'run_x_times' %>
   <hr />
-  <%= render 'select_input' %>
+  <div id="select-single">
+    <%= render 'select_input' %>
+  </div>
 </div>
 
+<a href="#" id="joyride" class="right"><small>How does this work?</small></a>
 <div class="columns medium-9">
   <!-- Display Selected Input -->
   <% if @preset_input %>
@@ -42,4 +45,40 @@
     </div>
   <% end %>
 
+  <div class="panel" id="firstStop">Hey there!</div>
+  <div class="panel" id="numero2">Hey there!</div>
+  <div class="panel" id="numero1">Hey there!</div>
 </div>
+
+<!-- JOYRIDE -->
+<ol class="joyride-list" data-joyride>
+  <li data-id="container" data-text="Next" data-options="prev_button: false">
+    <p>This is where you can view your net as you train it!</p>
+    <hr />
+    <div class="node-view-walkthrough">
+      <div><p>The <span class="purple">darker</span> a node is filled in, the stronger its output is.</p></div>
+      <div><p><span class="orange">Orange</span> is the color of activation. If a node is ringed in orange,
+        it is considered active! If a connection is orange, it is passing
+        positive activation through.</p>
+      </div>
+      <div><p><span class="blue">Blue</span> is the color of inhibition. If a connection is blue, it is
+          passing inhibitory (negative) signals to the child node.</p>
+      </div>
+      <div><p><span class="green">Green nodes</span> are bias nodes. They are simply a constant source of
+        activation, and will help your net's training achieve better results.</p>
+      </div>
+    </div>
+  </li>
+  <li data-id="select-single" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev" data-options="tip_location: top;">
+    <h4>Stop #1</h4>
+    <p></p>
+  </li>
+  <li data-id="numero2" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+    <h4>Stop #2</h4>
+    <p>Get the details right by styling Joyride with a custom stylesheet!</p>
+  </li>
+  <li data-button="End" data-prev-text="Prev">
+    <h4>Stop #3</h4>
+    <p>It works as a modal too!</p>
+  </li>
+</ol>

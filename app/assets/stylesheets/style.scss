@@ -1,12 +1,16 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:100,400|Open+Sans:400italic,400,600);
 
-$dark_base_color: #332B40;
+// Site Colors
 $light_base_color: #F7F7F7;
 $dark_text_color: #413E44;
+$orangered: #3988E8;
+$periwinkle: #F96353;
+
+// Node/Network Colors
 $node_purple: #3E2B73;
-$accent_1: #EFE672;
-$accent_2: #3988E8;
-$accent_3: #F96353;
+$active_orange: #FFA74C;
+$inhib_blue: #6AAEFF;
+$bias_green: #00BD3E;
 
 // ====================
 // FOUNDATION OVERRIDES
@@ -27,12 +31,12 @@ label {
 
 button, .button {
   background-color: transparent;
-  border: 3px solid $accent_3;
-  color: $accent_3;
+  border: 3px solid $periwinkle;
+  color: $periwinkle;
 
   &:hover, &:focus {
-    background-color: darken($accent_3, 6%);
-    border-color: darken($accent_3, 6%);
+    background-color: darken($periwinkle, 6%);
+    border-color: darken($periwinkle, 6%);
   }
 }
 
@@ -58,14 +62,22 @@ body {
   }
 
   a {
-    color: $accent_2;
+    color: $orangered;
     &:hover {
       text-decoration: underline;
-      color: darken($accent_2, 10%);
+      color: darken($orangered, 10%);
     }
   }
-
 }
+
+// Coloring Text
+// --------------------
+span.purple {
+  color: lighten($node_purple, 30%);
+}
+span.orange { color: $active_orange; }
+span.green { color: $bias_green; }
+span.blue { color: $inhib_blue; }
 
 // ====================
 // HEADER
@@ -230,7 +242,7 @@ $top-bar-height: 65px;
   text-align: center;
 
   .button.small {
-    background-color: $accent_2;
+    background-color: $orangered;
     border: none;
     color: white;
 
@@ -245,8 +257,8 @@ $top-bar-height: 65px;
 
 
     &:hover, &:focus {
-      background-color: darken($accent_2, 15%);
-      border-color: darken($accent_2, 15%);
+      background-color: darken($orangered, 15%);
+      border-color: darken($orangered, 15%);
     }
   }
 }
@@ -268,4 +280,12 @@ $top-bar-height: 65px;
   hr {
     margin-top: 0;
   }
+}
+
+// ====================
+// JOYRIDE
+// ====================
+
+.joyride-content-wrapper {
+  padding: 1.125rem 1.95rem 1.5rem;
 }

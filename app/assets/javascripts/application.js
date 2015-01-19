@@ -26,3 +26,12 @@ $(function(){ $(document).foundation(); });
 $(document).ready(function(){
   $('.your-class').slick();
 });
+
+
+
+$('#joyride').on('click', function() {
+  $(document).foundation('joyride', 'start');
+  $('.node-view-walkthrough').slick({
+    adaptiveHeight: true
+  });
+});
