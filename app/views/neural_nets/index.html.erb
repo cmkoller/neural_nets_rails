@@ -1,4 +1,3 @@
-<%= link_to "Create New Net", new_neural_net_path %>
 
 <ul>
   <% @neural_nets.each do |net| %>
@@ -7,3 +6,5 @@
     </li>
   <% end %>
 </ul>
+
+<%= link_to "Create New Net", new_neural_net_path, class: "button round" %>
