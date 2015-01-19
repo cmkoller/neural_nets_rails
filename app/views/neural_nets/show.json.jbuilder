@@ -19,7 +19,7 @@ json.nodes @neural_net.nodes do |node|
 
   json.id node.id.to_s
   json.label "  Output: #{node.output}"
-  json.x node.bias? ? 100 : (column_width / 2 + node_index_in_row * column_width)
+  json.x node.bias? ? 110 : (column_width / 2 + node_index_in_row * column_width)
   json.y current_layer * layer_height
   json.size 3
   json.type type

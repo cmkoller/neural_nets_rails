@@ -65,7 +65,7 @@ $top-bar-height: 65px;
 }
 
 .top-bar {
-  background: url("nodes copy 2.jpg");
+  background: url(asset-path("nodes copy 2.jpg"));
   background-repeat: no-repeat;
   background-size: 73%;
   background-position: 75px -7px;
@@ -91,7 +91,7 @@ $top-bar-height: 65px;
 
     &:before {
       content: "";
-      background-image: url("logo.png");
+      background-image: url(asset-path("logo.png"));
       background-size: 40px 40px;
     }
   }

@@ -1,5 +1,5 @@
 $(".neural_nets.show").ready(function() {
-  if ($(".neural_nets.show").length > 0) {
+if ($(".neural_nets.show").length > 0 || $(".neural_nets.update").length > 0) {
     var g = {
       nodes: [],
       edges: []
