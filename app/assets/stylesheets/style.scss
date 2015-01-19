@@ -21,7 +21,7 @@ small {
   box-shadow: 0 1px 1px rgba(0,0,0,0.3);
 }
 
-button, .button {
+button:not(.node-edit-button .button), .button:not(.node-edit-button .button) {
   background-color: transparent;
   border: 3px solid $accent_3;
   color: $accent_3;
@@ -53,7 +53,7 @@ body {
     font-family: Open Sans;
   }
 
-  a:hover {
+  a:hover:not(.name h1 a) {
     text-decoration: underline;
   }
 }
@@ -101,7 +101,6 @@ $top-bar-height: 65px;
     }
 
     &:hover {
-      text-decoration: none;
       color: darken($light_base_color,10%);
     }
   }
