@@ -22,7 +22,6 @@ class NeuralNet < ActiveRecord::Base
 
   def selected_output
     if selected_input_id
-      # input = preset_inputs.find(selected_input_id)
       selected_input.desired_output
     end
   end
@@ -231,7 +230,7 @@ class NeuralNet < ActiveRecord::Base
   end
 
   def output=(id)
-    selected_input_id = nil
+    self.selected_input_id = nil
     save
     desired_output = desired_outputs.find(id)
     backprop(desired_output.values.values)
