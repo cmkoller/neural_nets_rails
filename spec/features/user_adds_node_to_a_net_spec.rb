@@ -14,8 +14,8 @@ Acceptance Criteria
 ) do
 
   before(:each) do
-    visit root_path
-    click_on "Create New Net"
+    visit neural_nets_path
+    click_on "Build"
   end
 
   scenario 'user successfully adds first node' do
