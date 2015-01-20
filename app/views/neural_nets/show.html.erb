@@ -3,7 +3,9 @@
 
 
 <div class="columns medium-3 panel small-net input-selection">
-  <%= render 'run_x_times' %>
+  <div id="run-x">
+    <%= render 'run_x_times' %>
+  </div>
   <hr />
   <div id="select-single">
     <%= render 'select_input' %>
@@ -44,10 +46,6 @@
       <% end %>
     </div>
   <% end %>
-
-  <div class="panel" id="firstStop">Hey there!</div>
-  <div class="panel" id="numero2">Hey there!</div>
-  <div class="panel" id="numero1">Hey there!</div>
 </div>
 
 <!-- JOYRIDE -->
@@ -56,7 +54,10 @@
     <p>This is where you can view your net as you train it!</p>
     <hr />
     <div class="node-view-walkthrough">
-      <div><p>The <span class="purple">darker</span> a node is filled in, the stronger its output is.</p></div>
+      <div>
+        <p>The <span class="purple">darker</span> a node is filled in, the stronger its output is.</p>
+        <p>(Hover over a node to see its exact output!)</p>
+      </div>
       <div><p><span class="orange">Orange</span> is the color of activation. If a node is ringed in orange,
         it is considered active! If a connection is orange, it is passing
         positive activation through.</p>
@@ -70,15 +71,18 @@
     </div>
   </li>
   <li data-id="select-single" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev" data-options="tip_location: top;">
-    <h4>Stop #1</h4>
-    <p></p>
+    <h4>Training the Net</h4>
+    <p>This is where you can train the net, using one input at a time. Choose an input
+      to feed the net, and see what its outputs are!</p>
+    <p>Afterwards, click "Run Backpropagation"
+      to run the training.</p>
   </li>
-  <li data-id="numero2" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
-    <h4>Stop #2</h4>
-    <p>Get the details right by styling Joyride with a custom stylesheet!</p>
+  <li data-id="edit-presets" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+    <p>If you want to create new preset inputs, click here!</p>
   </li>
-  <li data-button="End" data-prev-text="Prev">
-    <h4>Stop #3</h4>
-    <p>It works as a modal too!</p>
+  <li data-id="run-x" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+    <p>Training a net can be slow, so to train it a large number of times all at once,
+      enter a number here! The net will be trained that number of times, using the inputs
+      and outputs you've already specified.</p>
   </li>
 </ol>
