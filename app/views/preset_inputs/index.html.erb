@@ -46,20 +46,23 @@
           </div>
         <% end %>
       <% end %>
-
-      <%= f.submit "Create", class: "button round small"%>
+      <div class="row text-center">
+        <%= f.submit "Create", class: "button round small"%>
+      </div>
     <% end %>
     <hr />
-    <%= link_to "Run Net", neural_net_path(@neural_net), class: "button round" %>
+
+    <%= link_to "I'm done!", neural_net_path(@neural_net), class: "button round" %>
   </div>
 
   <div class="columns small-3">
     <div class="panel small-net">
+      <h5>Created Pairs:</h5>
       <% @neural_net.preset_inputs.each do |input| %>
         <div class="panel">
           <!-- Display INPUT section -->
           <div class="row">
-            <h6><%= input.name %></h6>
+            <h6><%= input.name.empty? ? "Input:" : input.name %></h6>
             <% input.values.values.each do |val| %>
               <div class="columns text-center small-<%= 12/input.values.length %>">
                 <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
@@ -68,8 +71,9 @@
           </div>
           <!-- Display OUTPUT section -->
           <div class="row">
-            <h6><%= input.desired_output.name %></h6>
-            <% input.desired_output.values.values.each do |val| %>
+            <% output = input.desired_output %>
+            <h6><%= output.name.empty? ? "Desired Output:" : output.name %></h6>
+            <% output.values.values.each do |val| %>
               <div class="columns text-center small-<%= 12/input.desired_output.values.length %>">
                 <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
               </div>
