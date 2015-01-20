@@ -2,7 +2,7 @@
   <h5>Choose an input to give the net!</h5>
   <% @neural_net.preset_inputs.each do |preset_input| %>
     <%= f.label :input, value: preset_input.id do %>
-      <div class="panel">
+      <div class="input-section">
         <%= f.radio_button :input, preset_input.id %>
         <% unless preset_input.name.empty? %>
           <%= f.label "input_#{preset_input.id}".to_sym, preset_input.name %>
@@ -12,7 +12,11 @@
           <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
         <% end %>
       </div>
+      <hr />
     <% end %>
   <% end %>
-  <%= f.submit %>
+  <%= f.submit "Run Input", class: "button round small" %>
 <% end %>
+<small id="edit-presets">
+  <%= link_to "Edit Preset Inputs", neural_net_preset_inputs_path(@neural_net) %>
+</small>

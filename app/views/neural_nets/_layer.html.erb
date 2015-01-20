@@ -1,12 +1,13 @@
 <!-- MUST BE WRAPPED IN ITERATOR THAT PROVIDES VARIABLE "layer" -->
 <div class="layer_<%= layer %>_nodes">
-  <% num_nodes = @neural_net.layer_n_nodes(layer).length %>
+  <% num_nodes = @neural_net.nonbias_layer_n_nodes(layer).length %>
   <% @neural_net.loop_over_nodes(layer) do |i| %>
     <% node = @neural_net.layer_n_nodes(layer)[i] %>
-    <div class="columns text-center small-<%= 12/num_nodes %>">
-      <div class="node <%= node.output >= 1 ? 'active' : 'inactive' %>">
-        <%= node.output %>
+    <% unless node.bias? %>
+      <div class="columns text-center small-<%= 12/num_nodes %>">
+        <div class="node <%= node.output >= 1 ? 'active' : 'inactive' %>">
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

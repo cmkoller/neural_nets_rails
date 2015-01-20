@@ -1,33 +1,130 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400|Open+Sans:400italic,400,600);
+
+// Site Colors
+$light_base_color: #F7F7F7;
+$dark_text_color: #413E44;
+$orangered: #3988E8;
+$periwinkle: #F96353;
+
+// Node/Network Colors
+$node_purple: #3E2B73;
+$active_orange: #FFA74C;
+$inhib_blue: #6AAEFF;
+$bias_green: #00BD3E;
+
+// ====================
+// FOUNDATION OVERRIDES
+// ====================
+
+small {
+  font-size: 73%;
+}
+
+label {
+  color: darken($light_base_color, 40%);
+}
+
+.panel, #container {
+  border: none;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+button, .button {
+  background-color: transparent;
+  border: 3px solid $periwinkle;
+  color: $periwinkle;
+
+  &:hover, &:focus {
+    background-color: darken($periwinkle, 6%);
+    border-color: darken($periwinkle, 6%);
+  }
+}
+
+.medium-offset-half {
+  margin-left: 4.1665% !important;
+}
+
 // ====================
 // BODY & TEXT STYLING
 // ====================
 
-$dark_base_color: #332B40;
-$light_base_color: white;
-$dark_text_color: #413E44;
-$node_purple: #685782;
-$accent_1: #EFE672;
-$accent_2: #98A942;
-$accent_3: #0574A6;
-/* 54C5F7 */
-
 body {
-  background-color: $light_base_color;
+  background: $light_base_color;
 
-  h1, h2, h3, h4, h5, h6, & {
+  &, h1, h2, h3, h4, h5, h6 {
     color: $dark_text_color;
+    font-family: Lato;
+  }
+
+  &, button, .button,
+  .top-bar-section ul li > a {
+    font-family: Open Sans;
+  }
+
+  a {
+    color: $orangered;
+    &:hover {
+      text-decoration: underline;
+      color: darken($orangered, 10%);
+    }
   }
 }
 
+// Coloring Text
+// --------------------
+span.purple {
+  color: lighten($node_purple, 30%);
+}
+span.orange { color: $active_orange; }
+span.green { color: $bias_green; }
+span.blue { color: $inhib_blue; }
+
+// ====================
+// HEADER
+// ====================
+
+$top-bar-height: 65px;
+
 .header-wrapper {
-  &, .top-bar {
-    background-color: $dark_base_color;
-  }
+  background-color: black;
 }
 
 .top-bar {
+  background: url(asset-path("nodes copy.jpg"));
+  background-repeat: no-repeat;
+  background-size: 73%;
+  background-position: 75px -7px;
+
+
+  .top-bar-section li:not(.has-form) a:not(.button),
+  &, li a, .name h1 a,
+  &.expanded .title-area {
+    height: $top-bar-height;
+    line-height: $top-bar-height;
+  }
+
+
   .name h1 a {
     color: $light_base_color;
+    font-family: Lato;
+    font-weight: 200;
+    font-size: 2em;
+    transition: color .2s;
+
+    strong {
+      font-weight: 400;
+    }
+
+    &:before {
+      content: "";
+      background-image: url(asset-path("logo.png"));
+      background-size: 40px 40px;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: darken($light_base_color,10%);
+    }
   }
   .top-bar-section {
     ul li,
@@ -35,7 +132,15 @@ body {
     li:not(.has-form) a:not(.button),
     .dropdown li:not(.has-form):not(.active) > a:not(.button),
     li.active:not(.has-form) a:not(.button) {
-      background: $dark_base_color;
+      background: transparent;
+      font-family: Lato;
+      text-transform: lowercase;
+      font-weight: 200;
+      font-size: 1em;
+    }
+
+    li:not(.has-form) a:not(.button):hover {
+      background-color: rgba(86,56,170,.5);
     }
 
     ul li a:hover {
@@ -44,17 +149,48 @@ body {
   }
 }
 
-button, .button {
-  background-color: $accent_3;
+// ====================
+// HOME PAGE
+// ====================
 
-  &:hover, &:focus, &:hover, &:focus {
-    background-color: darken($accent_3, 6%);
+#index-buttons {
+  text-align: center;
+
+  .option {
+    background-color: $node_purple;
+    margin-top: 8em;
+    border-radius: 4px;
+    transition: background-color .2s;
+
+    &:hover {
+      background-color: darken($node_purple, 10%);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: white;
+      font-weight: 200;
+    }
   }
 }
 
 // ====================
 // NET VIEW
 // ====================
+
+#container {
+  height: 400px;
+  margin: auto;
+  margin-bottom: 15px;
+
+  #graph-container {
+    background-color: white;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+  }
+}
 
 // LAYER
 // --------------------
@@ -71,12 +207,17 @@ button, .button {
   border-radius: 50px;
   background-color: transparent;
   margin: auto;
-  border: 5px solid $node_purple;
+  border: 3px solid $light_base_color;
+  box-shadow: 0 0 0 5px $node_purple;
   display: inline-block;
+  vertical-align: middle;
 
   .small-net & {
     width: 20px;
     height: 20px;
+    border: 2px solid $light_base_color;
+    box-shadow: 0 0 0 2px $node_purple;
+    margin-right: 5px;
   }
 
   &.active {
@@ -88,10 +229,23 @@ button, .button {
 // NET EDIT
 // ====================
 
+.net-create {
+  margin-top: 3em;
+}
+
+.bias input[type="checkbox"] {
+  margin-bottom: 0;
+  margin-top: 1.5em;
+}
+
 .node-edit-button {
   text-align: center;
 
   .button.small {
+    background-color: $orangered;
+    border: none;
+    color: white;
+
     padding-top: 0.3rem;
     padding-right: .65rem;
     padding-bottom: 0.33rem;
@@ -100,5 +254,60 @@ button, .button {
     width: 30px;
     border-radius: 11px;
     height: 30px;
+
+
+    &:hover, &:focus {
+      background-color: darken($orangered, 15%);
+      border-color: darken($orangered, 15%);
+    }
   }
+}
+
+
+// ====================
+// INPUT SELECTION
+// ====================
+
+.input-selection {
+  .input-section {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    &:hover {
+      background-color: rgba(0,0,0,.05);
+    }
+  }
+
+  hr {
+    margin-top: 0;
+  }
+}
+
+// ====================
+// INPUT SELECTION CHECKBOXES
+// ====================
+
+input[type=checkbox].node-checkbox {
+  display:none;
+}
+
+input[type=checkbox].node-checkbox + label
+{
+  @extend .node;
+  margin: 2em;
+  color: transparent;
+}
+
+input[type=checkbox].node-checkbox:checked + label
+{
+  @extend .node.active;
+}
+
+
+
+// ====================
+// JOYRIDE
+// ====================
+
+.joyride-content-wrapper {
+  padding: 1.125rem 1.95rem 1.5rem;
 }

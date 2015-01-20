@@ -1,11 +1,18 @@
 <h2><%= @neural_net.name %></h2>
+<p><%= @neural_net.description %></p>
 
-<div class="columns medium-3 panel small-net">
-  <%= render 'run_x_times' %>
+
+<div class="columns medium-3 panel small-net input-selection">
+  <div id="run-x">
+    <%= render 'run_x_times' %>
+  </div>
   <hr />
-  <%= render 'select_input' %>
+  <div id="select-single">
+    <%= render 'select_input' %>
+  </div>
 </div>
 
+<a href="#" id="joyride" class="right"><small>How does this work?</small></a>
 <div class="columns medium-9">
   <!-- Display Selected Input -->
   <% if @preset_input %>
@@ -24,32 +31,58 @@
     <hr />
   <% end %>
   <!-- Show the Net -->
-  <%= render 'net_view' %>
+  <div id="container" class="columns small-12">
+    <!-- SIGMA STUFF -->
+      <div id="graph-container"></div>
+  </div>
   <!-- Show Output vs. Desired Output -->
+
   <% if @desired_output %>
-    <hr />
-    <div class="row output layer">
-      <div class="columns small-6">
-        <h4>Desired Output</h4>
-        <% num_nodes = @desired_output.values.length %>
-        <% @desired_output.values.values.each do |input| %>
-        <div class="columns text-center small-<%= 12/num_nodes %>">
-          <div class="node <%= input.to_i >= 1 ? 'active' : 'inactive' %>">
-          </div>
-        </div>
-        <% end %>
-      </div>
-      <div class="columns small-6">
-        <h4>Actual Output</h4>
-        <%= render partial: 'neural_nets/layer', locals: {layer: @neural_net.num_layers - 1} %>
-      </div>
-    </div>
     <!-- Backprop Button -->
-    <div class="row text_center">
+    <div class="row text-center backprop">
       <%= form_for @neural_net do |f| %>
       <%= f.hidden_field :output, value: @desired_output.id %>
-      <%= f.submit "Run Backpropagation" %>
+      <%= f.submit "Run Backpropagation", class: "button round"%>
       <% end %>
     </div>
   <% end %>
 </div>
+
+<!-- JOYRIDE -->
+<ol class="joyride-list" data-joyride>
+  <li data-id="container" data-text="Next" data-options="prev_button: false">
+    <p>This is where you can view your net as you train it!</p>
+    <hr />
+    <div class="node-view-walkthrough">
+      <div>
+        <p>The <span class="purple">darker</span> a node is filled in, the stronger its output is.</p>
+        <p>(Hover over a node to see its exact output!)</p>
+      </div>
+      <div><p><span class="orange">Orange</span> is the color of activation. If a node is ringed in orange,
+        it is considered active! If a connection is orange, it is passing
+        positive activation through.</p>
+      </div>
+      <div><p><span class="blue">Blue</span> is the color of inhibition. If a connection is blue, it is
+          passing inhibitory (negative) signals to the child node.</p>
+      </div>
+      <div><p><span class="green">Green nodes</span> are bias nodes. They are simply a constant source of
+        activation, and will help your net's training achieve better results.</p>
+      </div>
+    </div>
+  </li>
+  <li data-id="select-single" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev" data-options="tip_location: top;">
+    <h4>Training the Net</h4>
+    <p>This is where you can train the net, using one input at a time. Choose an input
+      to feed the net, and see what its outputs are!</p>
+    <p>Afterwards, click "Run Backpropagation"
+      to run the training.</p>
+  </li>
+  <li data-id="edit-presets" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+    <p>If you want to create new preset inputs, click here!</p>
+  </li>
+  <li data-id="run-x" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+    <p>Training a net can be slow, so to train it a large number of times all at once,
+      enter a number here! The net will be trained that number of times, using the inputs
+      and outputs you've already specified.</p>
+  </li>
+</ol>

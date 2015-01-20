@@ -20,7 +20,12 @@
       <% if @neural_net.first_layer_size > 0 %>
         <% @neural_net.first_layer_size.times do |i| %>
           <div class="columns text-center small-<%= 12/@neural_net.first_layer_size %>">
-            <%= f.check_box :values, name: "preset_input[values][#{i}]" %>
+            <%= f.check_box :values,
+                  { name: "preset_input[values][#{i}]",
+                    id: "preset_input_[values][#{i}]",
+                    class: "node-checkbox"},
+                  1, 0 %>
+            <%= f.label "[values][#{i}]", "." %>
           </div>
         <% end %>
       <% end %>
@@ -32,22 +37,32 @@
         <%= ff.label "Desired Output Activations:" %>
         <% @neural_net.last_layer_nodes.length.times do |i| %>
           <div class="columns text-center small-<%= 12/@neural_net.last_layer_nodes.length %>">
-            <%= ff.check_box :values, name: "preset_input[desired_output_attributes][values][#{i}]" %>
+            <%= ff.check_box :values,
+                  { name: "preset_input[desired_output_attributes][values][#{i}]",
+                    id: "preset_input_[desired_output_attributes][values][#{i}]",
+                    class: "node-checkbox" },
+                1, 0 %>
+            <%= f.label "[desired_output_attributes][values][#{i}]", "." %>
           </div>
         <% end %>
       <% end %>
-
-      <%= f.submit "Create", class: "button small"%>
+      <div class="row text-center">
+        <%= f.submit "Create", class: "button round small"%>
+      </div>
     <% end %>
+    <hr />
+
+    <%= link_to "I'm done!", neural_net_path(@neural_net), class: "button round" %>
   </div>
 
   <div class="columns small-3">
     <div class="panel small-net">
+      <h5>Created Pairs:</h5>
       <% @neural_net.preset_inputs.each do |input| %>
         <div class="panel">
           <!-- Display INPUT section -->
           <div class="row">
-            <h6><%= input.name %></h6>
+            <h6><%= input.name.empty? ? "Input:" : input.name %></h6>
             <% input.values.values.each do |val| %>
               <div class="columns text-center small-<%= 12/input.values.length %>">
                 <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
@@ -56,8 +71,9 @@
           </div>
           <!-- Display OUTPUT section -->
           <div class="row">
-            <h6><%= input.desired_output.name %></h6>
-            <% input.desired_output.values.values.each do |val| %>
+            <% output = input.desired_output %>
+            <h6><%= output.name.empty? ? "Desired Output:" : output.name %></h6>
+            <% output.values.values.each do |val| %>
               <div class="columns text-center small-<%= 12/input.desired_output.values.length %>">
                 <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
               </div>

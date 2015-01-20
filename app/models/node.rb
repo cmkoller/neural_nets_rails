@@ -1,4 +1,5 @@
 class Node < ActiveRecord::Base
+  default_scope { order('id ASC') }
   belongs_to :neural_net
   has_many :child_connections, class_name: "Connection", foreign_key: "parent_id"
   has_many :parent_connections, class_name: "Connection", foreign_key: "child_id"
@@ -9,6 +10,8 @@ class Node < ActiveRecord::Base
   validates :layer,
     presence: true
 
+  THRESHOLD = 0
+
   after_initialize :init
 
   def init
@@ -16,16 +19,31 @@ class Node < ActiveRecord::Base
   end
 
   def active?
-    if total_input >= 1
+    if output >= 1 || total_input >= 1
       "active"
     end
   end
 
+  # ============================
+  # ACTIVATION FUNCTIONS
+  # ============================
+
   # SIGMOID
+  # --------------------
   # One possible function for determining output
   def sigmoid(x)
     1 / (1 + (Math::E ** (-1 * x)))
   end
+
+  # STEP FUNCTION
+  # --------------------
+  def step(x)
+    x >= 0 ? 1 : 0
+  end
+
+  # ============================
+  # HELPER FUNCTIONS FOR FF/BP
+  # ============================
 
   # UPDATE_OUTPUT
   # -------------------
@@ -62,16 +80,22 @@ class Node < ActiveRecord::Base
     desired
   end
 
+  def output_node_error(desired)
+    output * (1 - output) * (desired - output)
+  end
+
+  def middle_node_error
+    output * (1 - output) * get_middle_desired_output
+  end
+
   def update_output_node_error(desired)
-    write_attribute(:error, output * (1 - output) * (desired - output))
+    write_attribute(:error, output_node_error(desired))
     save
   end
 
-  def update_middle_node_error()
-    desired = get_middle_desired_output
-    write_attribute(:error,  output * (1 - output) * desired)
+  def update_middle_node_error
+    write_attribute(:error, middle_node_error)
     save
-    binding.pry
   end
 
   # UPDATE_PARENT_CONNECTIONS
@@ -79,8 +103,12 @@ class Node < ActiveRecord::Base
   def update_parent_connections(alpha)
     parent_connections.each do |conn|
       parent = Node.find(conn.parent_id)
-      # binding.pry
-      conn.weight += alpha * parent.output * error
+      delta = alpha * (parent.output * conn.weight) * error
+      puts "Updating Parent Weight -- Child: #{id}, Parent: #{parent.id}"
+      puts "Parent Output: #{parent.output}"
+      puts "Parent Output * Conn Weight: #{parent.output * conn.weight}"
+      puts "Delta: #{delta}"
+      conn.weight += delta.round(3)
       conn.save
     end
   end

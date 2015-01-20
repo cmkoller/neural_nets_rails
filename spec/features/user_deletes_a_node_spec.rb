@@ -1,9 +1,9 @@
 require "rails_helper"
 
-feature "Add Node To Net", %q(
+feature "Delete Node From Net", %q(
 As a user
-I want to add nodes to a net I have created
-So that it isn't empty and I can successfully run it later
+I want to delete nodes to a net I have created
+So that I can fix my mistakes if I added too many nodes
 
 Acceptance Criteria
 [ ] I must be have created a net and be on the "Design Your Net" page
@@ -12,8 +12,8 @@ Acceptance Criteria
 ) do
 
     before(:each) do
-      visit root_path
-      click_on "Create New Net"
+      visit neural_nets_path
+      click_on "Build"
       page.find('#add_layer_0').click
     end
 

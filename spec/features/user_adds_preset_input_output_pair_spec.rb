@@ -23,7 +23,7 @@ Acceptance Criteria
     page.find('#add_layer_0').click
     page.find('#add_layer_0').click
     page.find('#add_layer_1').click
-    click_on "Save Net"
+    click_on "I'm Done!"
     visit neural_net_preset_inputs_path(neural_net)
   end
 
