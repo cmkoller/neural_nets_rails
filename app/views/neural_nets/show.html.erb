@@ -3,11 +3,16 @@
 
 
 <div class="columns medium-3 panel small-net input-selection">
-  <%= render 'run_x_times' %>
+  <div id="run-x">
+    <%= render 'run_x_times' %>
+  </div>
   <hr />
-  <%= render 'select_input' %>
+  <div id="select-single">
+    <%= render 'select_input' %>
+  </div>
 </div>
 
+<a href="#" id="joyride" class="right"><small>How does this work?</small></a>
 <div class="columns medium-9">
   <!-- Display Selected Input -->
   <% if @preset_input %>
@@ -41,5 +46,43 @@
       <% end %>
     </div>
   <% end %>
-
 </div>
+
+<!-- JOYRIDE -->
+<ol class="joyride-list" data-joyride>
+  <li data-id="container" data-text="Next" data-options="prev_button: false">
+    <p>This is where you can view your net as you train it!</p>
+    <hr />
+    <div class="node-view-walkthrough">
+      <div>
+        <p>The <span class="purple">darker</span> a node is filled in, the stronger its output is.</p>
+        <p>(Hover over a node to see its exact output!)</p>
+      </div>
+      <div><p><span class="orange">Orange</span> is the color of activation. If a node is ringed in orange,
+        it is considered active! If a connection is orange, it is passing
+        positive activation through.</p>
+      </div>
+      <div><p><span class="blue">Blue</span> is the color of inhibition. If a connection is blue, it is
+          passing inhibitory (negative) signals to the child node.</p>
+      </div>
+      <div><p><span class="green">Green nodes</span> are bias nodes. They are simply a constant source of
+        activation, and will help your net's training achieve better results.</p>
+      </div>
+    </div>
+  </li>
+  <li data-id="select-single" data-class="custom so-awesome" data-text="Next" data-prev-text="Prev" data-options="tip_location: top;">
+    <h4>Training the Net</h4>
+    <p>This is where you can train the net, using one input at a time. Choose an input
+      to feed the net, and see what its outputs are!</p>
+    <p>Afterwards, click "Run Backpropagation"
+      to run the training.</p>
+  </li>
+  <li data-id="edit-presets" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+    <p>If you want to create new preset inputs, click here!</p>
+  </li>
+  <li data-id="run-x" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;tip_animation:fade">
+    <p>Training a net can be slow, so to train it a large number of times all at once,
+      enter a number here! The net will be trained that number of times, using the inputs
+      and outputs you've already specified.</p>
+  </li>
+</ol>

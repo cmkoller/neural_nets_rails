@@ -18,7 +18,7 @@ sigma.canvas.nodes.custom = (function() {
     context.closePath();
 
     context.lineWidth =  9;
-    context.strokeStyle = '#3E2D72';
+    context.strokeStyle = settings('nodePurple');
     context.stroke();
 
 
