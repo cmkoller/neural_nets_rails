@@ -20,7 +20,12 @@
       <% if @neural_net.first_layer_size > 0 %>
         <% @neural_net.first_layer_size.times do |i| %>
           <div class="columns text-center small-<%= 12/@neural_net.first_layer_size %>">
-            <%= f.check_box :values, {name: "preset_input[values][#{i}]"}, 1, 0 %>
+            <%= f.check_box :values,
+                  { name: "preset_input[values][#{i}]",
+                    id: "preset_input_[values][#{i}]",
+                    class: "node-checkbox"},
+                  1, 0 %>
+            <%= f.label "[values][#{i}]", "." %>
           </div>
         <% end %>
       <% end %>
@@ -32,13 +37,19 @@
         <%= ff.label "Desired Output Activations:" %>
         <% @neural_net.last_layer_nodes.length.times do |i| %>
           <div class="columns text-center small-<%= 12/@neural_net.last_layer_nodes.length %>">
-            <%= ff.check_box :values, {name: "preset_input[desired_output_attributes][values][#{i}]"}, 1, 0 %>
+            <%= ff.check_box :values,
+                  { name: "preset_input[desired_output_attributes][values][#{i}]",
+                    id: "preset_input_[desired_output_attributes][values][#{i}]",
+                    class: "node-checkbox" },
+                1, 0 %>
+            <%= f.label "[desired_output_attributes][values][#{i}]", "." %>
           </div>
         <% end %>
       <% end %>
 
       <%= f.submit "Create", class: "button round small"%>
     <% end %>
+    <hr />
     <%= link_to "Run Net", neural_net_path(@neural_net), class: "button round" %>
   </div>
 
