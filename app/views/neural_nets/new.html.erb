@@ -1,0 +1,30 @@
+<h1>Build a new Neural Net</h1>
+
+<%= form_for @neural_net do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.fields_for :nodes do |f_node| %>
+    <div class="node">
+      <%= f_node.hidden_field :layer, name: "neural_net[nodes_attributes][][layer]", value: 0 %>
+    </div>
+  <% end %>
+
+  <div style="display: table; width: 100%;">
+    <ul style="display: table-row; width: 100%;">
+      <li style="display: table-cell">Hey</li>
+      <li style="display: table-cell">Hey</li>
+      <li style="display: table-cell">Hey</li>
+    </ul>
+  </div>
+
+  <div class="neural-net-layers">
+  </div>
+
+  <button class="neural-net-delete-layer">Delete Layer</button>
+  <button class="neural-net-new-layer">Add Layer</button>
+
+  <div class="neural-net-submit">
+    <%= f.submit "Build", class: "button" %>
+  </div>
+<% end %>

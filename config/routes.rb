@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: "statics#index"
-  resources :neural_nets, only: [:index, :new, :update, :show] do
+  resources :neural_nets, only: [:index, :new, :create, :update, :show] do
     resources :nodes, only: [:create, :destroy, :index]
     resources :preset_inputs, only: [:index, :create, :destroy]
   end

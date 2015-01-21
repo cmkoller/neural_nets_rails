@@ -1,5 +1,5 @@
 class NeuralNet < ActiveRecord::Base
-  has_many :nodes
+  has_many :nodes, inverse_of: :neural_net
   has_many :preset_inputs
   has_many :desired_outputs
   # has_one :selected_input, class_name: "PresetInput"
@@ -10,6 +10,8 @@ class NeuralNet < ActiveRecord::Base
 
   # Small constant regulating speed of learning
   ALPHA = 0.2
+
+  accepts_nested_attributes_for :nodes
 
   # =======================================
   # HELPER FUNCTIONS - Additional Getters

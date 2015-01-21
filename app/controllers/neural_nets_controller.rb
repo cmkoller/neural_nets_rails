@@ -4,8 +4,32 @@ class NeuralNetsController < ApplicationController
   end
 
   def new
-    @neural_net = NeuralNet.create
-    redirect_to neural_net_nodes_path(@neural_net)
+    @neural_net = NeuralNet.new
+  end
+
+  # {
+  #   neural_net: {
+  #     name: "Test",
+  #     description: "blah",
+  #     node_attributes: [
+  #       { layer: 0 },
+  #       { layer: 0 },
+  #       { layer: 1 }
+  #     ]
+  #
+  #   }
+  # }
+
+  def create
+    @neural_net = NeuralNet.new(neural_net_params)
+
+    if @neural_net.save
+      redirect_to neural_net_nodes_path(@neural_net)
+    else
+      @neural_nets = NeuralNet.all
+      puts @neural_net.errors.full_messages.join(", ")
+      render :index
+    end
   end
 
   def update
@@ -28,7 +52,7 @@ class NeuralNetsController < ApplicationController
   private
 
   def neural_net_params
-    params.require(:neural_net).permit(:name, :input, :output, :times, :generate_bias)
+    params.require(:neural_net).permit! #(:name, :input, :output, :times, :generate_bias)
   end
 
 end

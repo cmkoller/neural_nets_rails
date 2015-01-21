@@ -241,25 +241,23 @@ $top-bar-height: 65px;
 .node-edit-button {
   text-align: center;
 
-  .button.small {
-    background-color: $orangered;
-    border: none;
-    color: white;
+  background-color: $orangered;
+  border: none;
+  color: white;
 
-    padding-top: 0.3rem;
-    padding-right: .65rem;
-    padding-bottom: 0.33rem;
-    padding-left: 0.65rem;
-    font-size: 0.8125rem;
-    width: 30px;
-    border-radius: 11px;
-    height: 30px;
+  padding-top: 0.3rem;
+  padding-right: .65rem;
+  padding-bottom: 0.33rem;
+  padding-left: 0.65rem;
+  font-size: 0.8125rem;
+  width: 30px;
+  border-radius: 11px;
+  height: 30px;
 
 
-    &:hover, &:focus {
-      background-color: darken($orangered, 15%);
-      border-color: darken($orangered, 15%);
-    }
+  &:hover, &:focus {
+    background-color: darken($orangered, 15%);
+    border-color: darken($orangered, 15%);
   }
 }
 
