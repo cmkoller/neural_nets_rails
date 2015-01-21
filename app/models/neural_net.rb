@@ -6,6 +6,7 @@ class NeuralNet < ActiveRecord::Base
   attr_accessor :times, :input, :output, :generate_bias
 
   validates :name, length: {maximum: 255}
+  # validates_presence_of :nodes
 
   # Small constant regulating speed of learning
   ALPHA = 0.2

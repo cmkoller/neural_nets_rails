@@ -22,7 +22,7 @@
 
 $(function(){ $(document).foundation(); });
 
-// Initialize "Learn" page slider
+
 $(document).ready(function(){
   $('.your-class').slick();
 });

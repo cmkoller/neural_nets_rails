@@ -10,14 +10,15 @@ class NeuralNetsController < ApplicationController
 
   def update
     @neural_net = NeuralNet.find(params[:id])
-    if @neural_net.update(neural_net_params)
+    if @neural_net.update(neural_net_params) && !@neural_net.nodes.empty?
       flash[:info] = "Neural net updated."
       @preset_input = @neural_net.selected_input
       @desired_output = @neural_net.selected_output
       render 'show'
     else
       flash[:warning] = @neural_net.errors.full_messages.join(".  ")
-      render 'edit'
+      flash[:warning] += @neural_net.nodes.empty? ? "You must add at least 1 node. " : ""
+      redirect_to neural_net_nodes_path(@neural_net)
     end
   end
 
