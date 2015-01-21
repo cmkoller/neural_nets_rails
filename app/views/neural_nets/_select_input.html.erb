@@ -3,7 +3,7 @@
   <% @neural_net.preset_inputs.each do |preset_input| %>
     <%= f.label :input, value: preset_input.id do %>
       <div class="input-section">
-        <%= f.radio_button :input, preset_input.id %>
+        <%= f.radio_button :input, preset_input.id, required: true %>
         <% unless preset_input.name.empty? %>
           <%= f.label "input_#{preset_input.id}".to_sym, preset_input.name %>
           <br>
