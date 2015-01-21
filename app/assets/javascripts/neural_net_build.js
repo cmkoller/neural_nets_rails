@@ -29,6 +29,8 @@ $(document).ready(function() {
     // Delete Node button
     $(".delete").on("click", function(e) {
       e.preventDefault();
+      e.stopImmediatePropagation();
+      
 
       $(this).next().remove();
     });
