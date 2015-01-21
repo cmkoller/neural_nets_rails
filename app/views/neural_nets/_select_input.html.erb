@@ -1,29 +1,22 @@
 <h5>Choose an input to give the net!</h5>
-
-<% if @neural_net.preset_inputs.empty? %>
-
-  <p><em>You haven't set up any inputs yet -
-  <%= link_to "make some now!", neural_net_preset_inputs_path(@neural_net) %></em></p>
-<% else %>
-  <%= form_for @neural_net do |f| %>
-    <% @neural_net.preset_inputs.each do |preset_input| %>
-      <%= f.label :input, value: preset_input.id do %>
-        <div class="input-section">
-          <%= f.radio_button :input, preset_input.id, required: true %>
-          <% unless preset_input.name.empty? %>
-            <%= f.label "input_#{preset_input.id}".to_sym, preset_input.name %>
-            <br>
-          <% end %>
-          <% preset_input.values.values.each do |val| %>
-            <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
-          <% end %>
-        </div>
-        <hr />
-      <% end %>
+<%= form_for @neural_net do |f| %>
+  <% @neural_net.preset_inputs.each do |preset_input| %>
+    <%= f.label :input, value: preset_input.id do %>
+      <div class="input-section">
+        <%= f.radio_button :input, preset_input.id, required: true %>
+        <% unless preset_input.name.empty? %>
+          <%= f.label "input_#{preset_input.id}".to_sym, preset_input.name %>
+          <br>
+        <% end %>
+        <% preset_input.values.values.each do |val| %>
+          <div class="node <%= val.to_i >= 1 ? 'active' : '' %>"></div>
+        <% end %>
+      </div>
+      <hr />
     <% end %>
-    <%= f.submit "Run Input", class: "button round small" %>
   <% end %>
-  <small id="edit-presets">
-    <%= link_to "Edit Preset Inputs", neural_net_preset_inputs_path(@neural_net) %>
-  </small>
+  <%= f.submit "Run Input", class: "button round small" %>
 <% end %>
+<small id="edit-presets">
+  <%= link_to "Edit Preset Inputs", neural_net_preset_inputs_path(@neural_net) %>
+</small>

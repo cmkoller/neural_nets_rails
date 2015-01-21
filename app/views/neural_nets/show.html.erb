@@ -2,13 +2,19 @@
 <p><%= @neural_net.description %></p>
 
 <div class="columns medium-3 panel small-net input-selection">
-  <div id="run-x">
-    <%= render 'run_x_times' %>
-  </div>
-  <hr />
-  <div id="select-single">
-    <%= render 'select_input' %>
-  </div>
+  <% if @neural_net.preset_inputs.empty? %>
+    <p>You haven't set up any inputs yet -
+      <%= link_to "make some now", neural_net_preset_inputs_path(@neural_net) %>
+      to train your net!</p>
+  <% else %>
+    <div id="run-x">
+      <%= render 'run_x_times' %>
+    </div>
+    <hr />
+    <div id="select-single">
+      <%= render 'select_input' %>
+    </div>
+  <% end %>
 </div>
 
 <a href="#" id="joyride" class="right"><small>How does this work?</small></a>
