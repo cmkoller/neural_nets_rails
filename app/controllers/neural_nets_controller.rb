@@ -11,7 +11,6 @@ class NeuralNetsController < ApplicationController
   def update
     @neural_net = NeuralNet.find(params[:id])
     if @neural_net.update(neural_net_params) && !@neural_net.nodes.empty?
-      flash[:info] = "Neural net updated."
       @preset_input = @neural_net.selected_input
       @desired_output = @neural_net.selected_output
       render 'show'
