@@ -1,13 +1,14 @@
-var layerButtonsText = "<div class=\"row layer\">\
+var layerButtonsText = "<div class=\"layer-wrap\">\
+  <div class=\"layer row\">\
   <button class=\"small delete node-edit-button\">x</button>\
   <button class=\"small add node-edit-button\">+</button>\
-  </div>"
+  </div></div>"
 
-var nodeText = "<div class=\"node\">\
+var nodeText = "<div class=\"node-cell\"><div class=\"node\">\
   <input id=\"neural_net_nodes_attributes_0_layer\"\
     name=\"neural_net[nodes_attributes][][layer]\"\
     type=\"hidden\" value=\"0\" />\
-  </div>"
+  </div></div>"
 
 $(document).ready(function() {
 
@@ -30,7 +31,7 @@ $(document).ready(function() {
     $(".delete").on("click", function(e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      
+
 
       $(this).next().remove();
     });

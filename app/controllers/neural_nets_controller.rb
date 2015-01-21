@@ -7,28 +7,15 @@ class NeuralNetsController < ApplicationController
     @neural_net = NeuralNet.new
   end
 
-  # {
-  #   neural_net: {
-  #     name: "Test",
-  #     description: "blah",
-  #     node_attributes: [
-  #       { layer: 0 },
-  #       { layer: 0 },
-  #       { layer: 1 }
-  #     ]
-  #
-  #   }
-  # }
-
   def create
     @neural_net = NeuralNet.new(neural_net_params)
 
     if @neural_net.save
-      redirect_to neural_net_nodes_path(@neural_net)
+      redirect_to neural_net_preset_inputs_path(@neural_net)
     else
       @neural_nets = NeuralNet.all
       puts @neural_net.errors.full_messages.join(", ")
-      render :index
+      render :new
     end
   end
 
