@@ -263,6 +263,33 @@ $top-bar-height: 65px;
   }
 }
 
+// ====================
+// INPUT CREATION
+// ====================
+
+input[type=checkbox].node-checkbox {
+  display:none;
+
+  & + label {
+    @extend .node;
+    margin: 2em;
+    color: transparent;
+  }
+
+  &:checked + label {
+    @extend .node.active;
+  }
+}
+
+.created-inputs {
+  .panel {
+    padding: .8rem 1.25rem .4rem;
+  }
+
+  .delete {
+    padding-top: .4rem;
+  }
+}
 
 // ====================
 // INPUT SELECTION
@@ -282,25 +309,6 @@ $top-bar-height: 65px;
   }
 }
 
-// ====================
-// INPUT SELECTION CHECKBOXES
-// ====================
-
-input[type=checkbox].node-checkbox {
-  display:none;
-}
-
-input[type=checkbox].node-checkbox + label
-{
-  @extend .node;
-  margin: 2em;
-  color: transparent;
-}
-
-input[type=checkbox].node-checkbox:checked + label
-{
-  @extend .node.active;
-}
 
 
 
