@@ -202,10 +202,13 @@ $top-bar-height: 65px;
 }
 
 .layer {
-  margin-bottom: 40px;
   display: table-row;
   width: 100%;
   position: relative;
+
+  .small-net & {
+    height: 40px;
+  }
 }
 
 // NODE
@@ -296,7 +299,7 @@ input[type=checkbox].node-checkbox {
   }
 }
 
-.created-inputs {
+#screated-inputs {
   .panel {
     padding: .8rem 1.25rem .4rem;
   }
