@@ -11,7 +11,9 @@ class NeuralNetsController < ApplicationController
   def create
     @neural_net = NeuralNet.new(neural_net_params)
     if @neural_net.save
-      @neural_net.gen_bias
+      if neural_net_params[:generate_bias]
+        @neural_net.gen_bias
+      end
       binding.pry
       @neural_net.fill_connections
       redirect_to neural_net_preset_inputs_path(@neural_net)

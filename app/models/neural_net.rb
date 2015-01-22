@@ -127,7 +127,8 @@ class NeuralNet < ActiveRecord::Base
 
   def fill_connections
     binding.pry
-    nodes.each do |node|
+    # nodes.each do |node|
+    Node.where(neural_net_id: id).each do |node|
       unless node.layer >= num_layers - 1
         generate_child_connections(node)
       end
