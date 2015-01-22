@@ -7,11 +7,11 @@
   <%= f.text_field :description %>
 
 
-  <%= f.fields_for :nodes do |f_node| %>
+  <!-- <%= f.fields_for :nodes do |f_node| %>
     <div class="node">
       <%= f_node.hidden_field :layer, name: "neural_net[nodes_attributes][][layer]", value: 0 %>
     </div>
-  <% end %>
+  <% end %> -->
 
   <div class="neural-net-layers">
   </div>
@@ -23,7 +23,7 @@
   <div class="row">
     <div class="columns small-6 medium-3 medium-offset-3 text-left bias">
       <%= f.label :generate_bias do %>
-        <%= f.check_box :generate_bias %>
+        <%= f.check_box :generate_bias, {}, true, false %>
         Generate bias nodes?
       <% end %>
       <%= f.label :generate_bias do %>

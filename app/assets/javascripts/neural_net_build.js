@@ -4,11 +4,11 @@ var layerButtonsText = "<div class=\"layer-wrap\">\
   <button class=\"small add node-edit-button\">+</button>\
   </div></div>"
 
-var nodeText = "<div class=\"node-cell\"><div class=\"node\">\
+var nodeText1 = "<div class=\"node-cell\"><div class=\"node\">\
   <input id=\"neural_net_nodes_attributes_0_layer\"\
     name=\"neural_net[nodes_attributes][][layer]\"\
-    type=\"hidden\" value=\"0\" />\
-  </div></div>"
+    type=\"hidden\" value="
+var nodeText2 = " /></div></div>"
 
 $(document).ready(function() {
 
@@ -24,7 +24,11 @@ $(document).ready(function() {
       e.preventDefault();
       e.stopImmediatePropagation();
 
-      $(this).before(nodeText);
+      var layer = $(this).parent().parent().index();
+
+      console.log(layer);
+
+      $(this).before(nodeText1 + layer + nodeText2);
     });
 
     // Delete Node button

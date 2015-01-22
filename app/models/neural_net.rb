@@ -13,6 +13,25 @@ class NeuralNet < ActiveRecord::Base
 
   accepts_nested_attributes_for :nodes
 
+  # after_filter :init, only: :create
+
+  def init
+    # if self.new_record?
+      nodes.each do |node|
+        # Unless L is first layer, generate upwards connections
+        # unless node.layer <= 0
+        #   generate_parent_connections(node)
+        # end
+
+        # Unless L is last layer, generate downward connections
+        unless node.layer >= num_layers - 1
+          binding.pry
+          generate_child_connections(node)
+        end
+      end
+    # end
+  end
+
   # =======================================
   # HELPER FUNCTIONS - Additional Getters
   # =======================================
@@ -61,11 +80,8 @@ class NeuralNet < ActiveRecord::Base
   # --------------------
   # Output: Number of layers in NN
   def num_layers
-    num_layers = 0
-    while !nodes.where(neural_net_id: id, layer: num_layers).empty?
-      num_layers += 1
-    end
-    num_layers
+    layers = nodes.map { |n| n.layer }
+    layers.max + 1
   end
 
   # FIRST_LAYER_NODES
@@ -203,7 +219,7 @@ class NeuralNet < ActiveRecord::Base
   # to all nodes on layer below.
   # => Returns node
   def create_bias_node(l)
-    Node.create(neural_net_id: id, layer: l, bias: true, output: 1)
+    Node.create(neural_net_id: NeuralNet.last.id + 1, layer: l, bias: true, output: 1)
   end
 
   # GENERATE_BIAS
@@ -212,12 +228,14 @@ class NeuralNet < ActiveRecord::Base
   # Generates a bias node for each non-output layer, each connected
   # to all nodes below but none above.
   def generate_bias=(x)
+    binding.pry
     # For each layer except the output...
     (num_layers - 1).times do |l|
       # Unless there's already a bias node...
       unless bias_node?(l)
         node = create_bias_node(l)
         generate_child_connections(node)
+        binding.pry
       end
     end
   end

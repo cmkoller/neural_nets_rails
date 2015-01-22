@@ -1,4 +1,11 @@
 class NeuralNetsController < ApplicationController
+  after_filter :fill_net, only: :create
+
+  def fill_net
+    binding.pry
+    @neural_net = NeuralNet.find(params[:id])
+  end
+
   def index
     @neural_nets = NeuralNet.all
   end
@@ -9,7 +16,7 @@ class NeuralNetsController < ApplicationController
 
   def create
     @neural_net = NeuralNet.new(neural_net_params)
-
+    binding.pry
     if @neural_net.save
       redirect_to neural_net_preset_inputs_path(@neural_net)
     else
@@ -20,6 +27,7 @@ class NeuralNetsController < ApplicationController
   end
 
   def update
+    binding.pry
     @neural_net = NeuralNet.find(params[:id])
     if @neural_net.update(neural_net_params) && !@neural_net.nodes.empty?
       @preset_input = @neural_net.selected_input

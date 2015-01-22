@@ -5,10 +5,12 @@ class Node < ActiveRecord::Base
   has_many :parent_connections, class_name: "Connection", foreign_key: "child_id"
   has_many :parents, through: :parent_connections
 
-  validates :neural_net,
-    presence: true
+  # validates :neural_net,
+  #   presence: true
   validates :layer,
     presence: true
+
+  attr_accessor :placement
 
   THRESHOLD = 0
 
@@ -23,6 +25,7 @@ class Node < ActiveRecord::Base
       "active"
     end
   end
+
 
   # ============================
   # ACTIVATION FUNCTIONS
