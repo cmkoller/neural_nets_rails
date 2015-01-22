@@ -3,8 +3,8 @@
 // Site Colors
 $light_base_color: #F7F7F7;
 $dark_text_color: #413E44;
-$orangered: #3988E8;
-$periwinkle: #F96353;
+$periwinkle: #3988E8;
+$orangered: #F96353;
 
 // Node/Network Colors
 $node_purple: #3E2B73;
@@ -31,12 +31,12 @@ label {
 
 button, .button {
   background-color: transparent;
-  border: 3px solid $periwinkle;
-  color: $periwinkle;
+  border: 3px solid $orangered;
+  color: $orangered;
 
   &:hover, &:focus {
-    background-color: darken($periwinkle, 6%);
-    border-color: darken($periwinkle, 6%);
+    background-color: darken($orangered, 6%);
+    border-color: darken($orangered, 6%);
   }
 }
 
@@ -62,10 +62,10 @@ body {
   }
 
   a {
-    color: $orangered;
+    color: $periwinkle;
     &:hover {
       text-decoration: underline;
-      color: darken($orangered, 10%);
+      color: darken($periwinkle, 10%);
     }
   }
 }
@@ -195,12 +195,30 @@ $top-bar-height: 65px;
 // LAYER
 // --------------------
 
-.layer.row {
-  margin-bottom: 40px;
+.layer-wrap {
+  display: table;
+  width: 100%;
+  position: relative;
+}
+
+.layer {
+  display: table-row;
+  width: 100%;
+  position: relative;
+
+  .small-net & {
+    height: 40px;
+  }
 }
 
 // NODE
 // --------------------
+.node-cell {
+  display: table-cell;
+  position: relative;
+  left: 1em;
+}
+
 .node {
   width: 50px;
   height: 50px;
@@ -229,8 +247,10 @@ $top-bar-height: 65px;
 // NET EDIT
 // ====================
 
-.net-create {
-  margin-top: 3em;
+
+.add {
+  position: absolute;
+  right: 0;
 }
 
 .bias input[type="checkbox"] {
@@ -238,28 +258,26 @@ $top-bar-height: 65px;
   margin-top: 1.5em;
 }
 
-.node-edit-button {
+button.node-edit-button.small {
   text-align: center;
 
-  .button.small {
-    background-color: $orangered;
-    border: none;
-    color: white;
+  background-color: $periwinkle;
+  border: none;
+  color: white;
 
-    padding-top: 0.3rem;
-    padding-right: .65rem;
-    padding-bottom: 0.33rem;
-    padding-left: 0.65rem;
-    font-size: 0.8125rem;
-    width: 30px;
-    border-radius: 11px;
-    height: 30px;
+  padding-top: 0.3rem;
+  padding-right: .65rem;
+  padding-bottom: 0.33rem;
+  padding-left: 0.65rem;
+  font-size: 0.8125rem;
+  /* width: 30px; */
+  border-radius: 11px;
+  height: 30px;
 
-
-    &:hover, &:focus {
-      background-color: darken($orangered, 15%);
-      border-color: darken($orangered, 15%);
-    }
+  display: table-cell;
+  &:hover, &:focus {
+    background-color: darken($periwinkle, 15%);
+    border-color: darken($periwinkle, 15%);
   }
 }
 
@@ -281,7 +299,7 @@ input[type=checkbox].node-checkbox {
   }
 }
 
-.created-inputs {
+#screated-inputs {
   .panel {
     padding: .8rem 1.25rem .4rem;
   }
@@ -308,9 +326,6 @@ input[type=checkbox].node-checkbox {
     margin-top: 0;
   }
 }
-
-
-
 
 // ====================
 // JOYRIDE

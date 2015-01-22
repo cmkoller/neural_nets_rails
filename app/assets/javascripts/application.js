@@ -24,14 +24,18 @@ $(function(){ $(document).foundation(); });
 
 
 $(document).ready(function(){
-  $('.your-class').slick();
+  $('.tutorial1').slick();
 });
 
 
 
-$('#joyride').on('click', function() {
+$('#show-joyride').on('click', function() {
   $(document).foundation('joyride', 'start');
   $('.node-view-walkthrough').slick({
     adaptiveHeight: true
   });
+});
+
+$('#presets-joyride').on('click', function() {
+  $(document).foundation('joyride', 'start');
 });

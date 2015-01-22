@@ -1,17 +1,27 @@
 class NeuralNetsController < ApplicationController
+
   def index
     @neural_nets = NeuralNet.all
   end
 
   def new
-    @neural_net = NeuralNet.create
-    redirect_to neural_net_nodes_path(@neural_net)
+    @neural_net = NeuralNet.new
+  end
+
+  def create
+    @neural_net = NeuralNet.new(neural_net_params)
+
+    if @neural_net.save
+      redirect_to neural_net_preset_inputs_path(@neural_net)
+    else
+      @neural_nets = NeuralNet.all
+      render :new
+    end
   end
 
   def update
     @neural_net = NeuralNet.find(params[:id])
     if @neural_net.update(neural_net_params) && !@neural_net.nodes.empty?
-      flash[:info] = "Neural net updated."
       @preset_input = @neural_net.selected_input
       @desired_output = @neural_net.selected_output
       render 'show'
@@ -29,7 +39,7 @@ class NeuralNetsController < ApplicationController
   private
 
   def neural_net_params
-    params.require(:neural_net).permit(:name, :input, :output, :times, :generate_bias)
+    params.require(:neural_net).permit! #(:name, :input, :output, :times, :generate_bias)
   end
 
 end

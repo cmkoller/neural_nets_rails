@@ -1,14 +1,16 @@
 class Node < ActiveRecord::Base
   default_scope { order('id ASC') }
-  belongs_to :neural_net
+  belongs_to :neural_net, inverse_of: :nodes
   has_many :child_connections, class_name: "Connection", foreign_key: "parent_id"
   has_many :parent_connections, class_name: "Connection", foreign_key: "child_id"
   has_many :parents, through: :parent_connections
 
-  validates :neural_net_id,
-    presence: true
+  # validates :neural_net,
+  #   presence: true
   validates :layer,
     presence: true
+
+  attr_accessor :placement
 
   THRESHOLD = 0
 
@@ -23,6 +25,7 @@ class Node < ActiveRecord::Base
       "active"
     end
   end
+
 
   # ============================
   # ACTIVATION FUNCTIONS

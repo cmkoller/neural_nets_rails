@@ -1,5 +1,5 @@
 class NeuralNet < ActiveRecord::Base
-  has_many :nodes
+  has_many :nodes, inverse_of: :neural_net
   has_many :preset_inputs
   has_many :desired_outputs
   # has_one :selected_input, class_name: "PresetInput"
@@ -10,6 +10,16 @@ class NeuralNet < ActiveRecord::Base
 
   # Small constant regulating speed of learning
   ALPHA = 0.2
+
+  accepts_nested_attributes_for :nodes
+
+  after_create do
+    if has_bias?
+      gen_bias
+    end
+
+    fill_connections
+  end
 
   # =======================================
   # HELPER FUNCTIONS - Additional Getters
@@ -59,11 +69,8 @@ class NeuralNet < ActiveRecord::Base
   # --------------------
   # Output: Number of layers in NN
   def num_layers
-    num_layers = 0
-    while !nodes.where(neural_net_id: id, layer: num_layers).empty?
-      num_layers += 1
-    end
-    num_layers
+    layers = nodes.map { |n| n.layer }
+    layers.max + 1
   end
 
   # FIRST_LAYER_NODES
@@ -125,6 +132,14 @@ class NeuralNet < ActiveRecord::Base
   # ====================
   # CREATION/DELETION METHODS
   # ====================
+
+  def fill_connections
+    nodes.reload.each do |node|
+      unless node.layer >= num_layers - 1
+        generate_child_connections(node)
+      end
+    end
+  end
 
   # GENERATE_CHILD_CONNECTIONS
   # -----------------------------
@@ -201,7 +216,7 @@ class NeuralNet < ActiveRecord::Base
   # to all nodes on layer below.
   # => Returns node
   def create_bias_node(l)
-    Node.create(neural_net_id: id, layer: l, bias: true, output: 1)
+    Node.create(neural_net: self, layer: l, bias: true, output: 1)
   end
 
   # GENERATE_BIAS
@@ -210,14 +225,25 @@ class NeuralNet < ActiveRecord::Base
   # Generates a bias node for each non-output layer, each connected
   # to all nodes below but none above.
   def generate_bias=(x)
+    if x == "true"
+      @has_bias = true
+    end
+  end
+
+  def has_bias?
+    @has_bias
+  end
+
+  def gen_bias
     # For each layer except the output...
+    node = nil
     (num_layers - 1).times do |l|
       # Unless there's already a bias node...
       unless bias_node?(l)
         node = create_bias_node(l)
-        generate_child_connections(node)
       end
     end
+    node
   end
 
   # ============================

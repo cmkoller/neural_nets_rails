@@ -14,8 +14,18 @@
   </div>
 </div>
 
-<div class="your-class">
-  <div>your content</div>
-  <div>your content</div>
-  <div>your content</div>
+<div class="tutorial1">
+  <div>
+    <%= image_tag "neurons.jpg" %>
+    <p>Neural nets are a type of <strong>artifical intelligence program</strong>, designed as a simple
+    model for how neurons work.</p>
+  </div>
+  <div><p>Nodes are arranged in layers. Each node is connected to all nodes on the layer below.
+  Connections can be different strenghts - some can be very strong, some can be almost nonexistant,
+  and some can even be negative, which means the pass negative, inhibatory signal to the child node.</p></div>
+  <div><p>When a node gets activated, it uses its connections to send that output to all of its child nodes
+    (nodes on the layer below it). The output gets multiplied by the connection weight, and the resulting
+    value gets registered by the child node.</p></div>
+  <div><p>The child node tallies up all of the inputs from its parent nodes, and uses
+    that value to determine how much it itself will activate</p></div>
 </div>
