@@ -24,7 +24,7 @@ $(function(){ $(document).foundation(); });
 
 
 $(document).ready(function(){
-  $('.your-class').slick();
+  $('.tutorial1').slick();
 });
 
 
