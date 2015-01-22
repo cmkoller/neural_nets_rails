@@ -19,6 +19,10 @@ class NeuralNetsController < ApplicationController
     end
   end
 
+  def show
+    @neural_net = NeuralNet.find(params[:id])
+  end
+
   def update
     @neural_net = NeuralNet.find(params[:id])
     if @neural_net.update(neural_net_params) && !@neural_net.nodes.empty?
@@ -32,8 +36,9 @@ class NeuralNetsController < ApplicationController
     end
   end
 
-  def show
-    @neural_net = NeuralNet.find(params[:id])
+  def destroy
+    NeuralNet.destroy(params[:id])
+    redirect_to neural_nets_path
   end
 
   private
