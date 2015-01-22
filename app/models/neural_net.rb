@@ -13,6 +13,14 @@ class NeuralNet < ActiveRecord::Base
 
   accepts_nested_attributes_for :nodes
 
+  after_create do
+    if has_bias?
+      gen_bias
+    end
+
+    fill_connections
+  end
+
   # =======================================
   # HELPER FUNCTIONS - Additional Getters
   # =======================================
@@ -126,9 +134,7 @@ class NeuralNet < ActiveRecord::Base
   # ====================
 
   def fill_connections
-    binding.pry
-    # nodes.each do |node|
-    Node.where(neural_net_id: id).each do |node|
+    nodes.reload.each do |node|
       unless node.layer >= num_layers - 1
         generate_child_connections(node)
       end
@@ -219,6 +225,13 @@ class NeuralNet < ActiveRecord::Base
   # Generates a bias node for each non-output layer, each connected
   # to all nodes below but none above.
   def generate_bias=(x)
+    if x == "true"
+      @has_bias = true
+    end
+  end
+
+  def has_bias?
+    @has_bias
   end
 
   def gen_bias
@@ -228,7 +241,6 @@ class NeuralNet < ActiveRecord::Base
       # Unless there's already a bias node...
       unless bias_node?(l)
         node = create_bias_node(l)
-        binding.pry
       end
     end
     node
