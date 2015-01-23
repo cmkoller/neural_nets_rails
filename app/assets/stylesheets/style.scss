@@ -334,3 +334,40 @@ input[type=checkbox].node-checkbox {
 .joyride-content-wrapper {
   padding: 1.125rem 1.95rem 1.5rem;
 }
+
+// ====================
+// TUTORIAL
+// ====================
+
+.tutorial1 {
+  width: 75%;
+  margin: auto;
+  border: 1px solid rgb(204, 204, 204);
+  margin-bottom: 20px;
+}
+
+// SLICK OVERRIDES
+// ----------------------
+$slick-arrow-size: 50px;
+
+.slick-prev, .slick-next {
+  width: $slick-arrow-size;
+  height: $slick-arrow-size;
+  top: 37%;
+
+  &:before {
+    font-size: $slick-arrow-size;
+    color: $node-purple;
+  }
+}
+
+.slick-slide {
+  padding: 20px 40px;
+  background-color: rgb(238, 238, 238);
+  text-align: justify;
+
+  img {
+    margin: auto;
+    margin-bottom: 20px;
+  }
+}

@@ -24,7 +24,9 @@ $(function(){ $(document).foundation(); });
 
 
 $(document).ready(function(){
-  $('.tutorial1').slick();
+  $('.tutorial1').slick({
+    adaptiveHeight: true
+  });
 });
 
 
