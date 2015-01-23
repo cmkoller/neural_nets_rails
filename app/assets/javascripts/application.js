@@ -23,6 +23,12 @@
 $(function(){ $(document).foundation(); });
 
 
+$(document).ready(function(){
+  $('.tutorial1').slick();
+});
+
+
+
 $('#show-joyride').on('click', function() {
   $(document).foundation('joyride', 'start');
   $('.node-view-walkthrough').slick({
